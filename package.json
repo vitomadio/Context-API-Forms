@@ -1,0 +1,35 @@
+{
+  "name": "context-api-form",
+  "version": "1.0.0",
+  "description": "Lightweight form library that takes advantage of Context API to manage its state",
+  "keywords": [
+    "Form"
+  ],
+  "author": {
+    "name": "Vito Madio"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "dependencies": {
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "react-scripts": "3.4.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.11.9",
+    "@testing-library/react": "11.2.3",
+    "typescript": "3.8.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
