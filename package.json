@@ -1,5 +1,5 @@
 {
-  "name": "context-api-form",
+  "name": "context-api-forms",
   "version": "1.0.0",
   "description": "Lightweight form library that takes advantage of Context API to manage its state",
   "keywords": [
