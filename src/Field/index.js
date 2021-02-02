@@ -9,6 +9,7 @@ const Field = ({
   fieldArrayName,
   validations,
   label,
+  placeholder,
   children,
   key
 }) => {
@@ -18,6 +19,7 @@ const Field = ({
   const childrenWithProps = React.cloneElement(children, {
     type,
     label,
+    placeholder,
     name: fieldName,
     error
   });
