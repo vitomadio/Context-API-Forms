@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import FieldArray from "../index";
-import Field from '../../Field';
+import Field from '../../../Field';
 import Input from '../../input-samples/Input';
 
 describe('Form', () => {

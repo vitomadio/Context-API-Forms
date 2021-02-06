@@ -2,10 +2,10 @@
 import React, { createContext, useReducer } from "react";
 
 const initialState = {};
-const store = createContext(initialState);
-const { Provider } = store;
+const formStore = createContext(initialState);
+const { Provider } = formStore;
 
-const StateProvider = ({ children }) => {
+const FormProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case "change-form":
@@ -17,11 +17,11 @@ const StateProvider = ({ children }) => {
           }
         };
       default:
-        throw new Error();
+        return state;
     }
   }, initialState);
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
-export { store, StateProvider };
+export { formStore, FormProvider };

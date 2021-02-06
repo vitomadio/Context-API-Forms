@@ -1,6 +1,6 @@
 {
   "name": "context-api-forms",
-  "version": "1.0.5",
+  "version": "1.0.14",
   "description": "A Higher Order Component using context-api to keep form state in a store",
   "private": false,
   "keywords": [
@@ -18,11 +18,6 @@
     "name": "Vito Madio <vito.madio01@gmail.com>"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "files": [
-    "dist"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/vitomadio/Context-API-Forms"
@@ -32,9 +27,13 @@
     "react-dom": "17.0.0",
     "react-scripts": "3.4.3"
   },
+  "peerDependencies": {
+    "react": "17.0.0",
+    "react-dom": "17.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.12.13",
-    "@babel/core": "^7.12.13",
+    "@babel/core": "7.12.13",
     "@babel/preset-react": "7.12.13",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "11.2.3",
@@ -46,7 +45,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "publish:npm": "rm -rf dist && mkdir dist &&  babel src/lib -d dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__"
+    "publish:npm": "rm -rf dist && mkdir dist && babel src/lib --out-dir dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__"
   },
   "browserslist": [
     ">0.2%",
