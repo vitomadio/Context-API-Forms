@@ -7,16 +7,18 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
   useEffect(() => {
     const inputChange = (event) => {
       if (ref.current && ref.current.contains(event.target)) {
-        let value = event.target.value;
+        let value = event.target.value || null;
         if (type === "number") {
-          value = parseInt(event.target.value) || "";
+          if (!value || value === 0) {
+            value = null;
+          }
+          value = parseInt(value);
         }
         if (type === "checkbox") {
-          if (event.target.checked !== true) {
+          value = event.target.checked;
+          if (value !== true) {
             value = false;
-          } else {
-            value = event.target.checked;
-          }
+          } 
         }
         if (fieldArrayName) {
           return dispatch({
@@ -32,12 +34,11 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
         });
       }
     };
-
     document.addEventListener("change", inputChange);
     return () => {
       document.removeEventListener("change", inputChange);
     };
-  }, [ref]);
+  }, [ref, dispatch, fieldArrayName, fieldName, formName, type]);
 };
 
 export default useInputChange;

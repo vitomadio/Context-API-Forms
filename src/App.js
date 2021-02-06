@@ -15,15 +15,15 @@ const Required = Validation.required;
 export default function App() {
   const { state } = useContext(store);
 
-  console.log(JSON.stringify(state, null, 4));
+  
 
   return (
     <div className="App">
       <Form formName="my-form">
-        <Field fieldName="name" validations={[Required]}>
+        <Field fieldName="name" label="Name" validations={[Required]}>
           <Input />
         </Field>
-        <Field fieldName="lastname" validations={[Required]}>
+        <Field fieldName="lastname" label="Last Name" validations={[Required]}>
           <Input />
         </Field>
         <Field fieldName="description">
@@ -50,6 +50,7 @@ export default function App() {
           </Field>
         </FieldArray>
       </Form>
+      {JSON.stringify(state, null, 4)};
     </div>
   );
 }
