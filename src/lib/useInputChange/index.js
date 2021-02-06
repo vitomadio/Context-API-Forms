@@ -2,8 +2,8 @@ import { useContext, useEffect } from "react";
 import { formStore } from "../store";
 
 const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
-  const { dispatch } = useContext(formStore);
 
+  const { state, dispatch } = useContext(formStore);
   useEffect(() => {
     const inputChange = (event) => {
       if (ref.current && ref.current.contains(event.target)) {
@@ -24,7 +24,7 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
           return dispatch({
             type: "change-form",
             payload: {
-              [formName]: { [fieldArrayName]: { [fieldName]: value } }
+              [formName]: { [fieldArrayName]: { ...state[formName], [fieldName]: value } }
             }
           });
         }
@@ -38,7 +38,7 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
     return () => {
       document.removeEventListener("change", inputChange);
     };
-  }, [ref, dispatch, fieldArrayName, fieldName, formName, type]);
+  }, [ref, dispatch, fieldArrayName, fieldName, formName, type, state]);
 };
 
 export default useInputChange;
