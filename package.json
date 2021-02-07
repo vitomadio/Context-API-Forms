@@ -1,6 +1,6 @@
 {
   "name": "context-api-forms",
-  "version": "1.0.14",
+  "version": "1.1.14",
   "description": "A Higher Order Component using context-api to keep form state in a store",
   "private": false,
   "keywords": [
