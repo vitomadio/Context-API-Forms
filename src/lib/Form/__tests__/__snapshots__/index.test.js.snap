@@ -75,7 +75,6 @@ Object {
       >
         <div>
           <label>
-            Name
             <input />
           </label>
         </div>
@@ -88,7 +87,6 @@ Object {
     >
       <div>
         <label>
-          Name
           <input />
         </label>
       </div>
