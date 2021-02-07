@@ -1,9 +1,8 @@
 import { useContext, useEffect } from "react";
-import { store } from "../store";
+import { formStore } from "../store";
 
 const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
-  const { dispatch } = useContext(store);
-
+  const { state, dispatch } = useContext(formStore);
   useEffect(() => {
     const inputChange = (event) => {
       if (ref.current && ref.current.contains(event.target)) {
@@ -18,27 +17,39 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
           value = event.target.checked;
           if (value !== true) {
             value = false;
-          } 
+          }
         }
         if (fieldArrayName) {
-          return dispatch({
+          if (state[formName] && state[formName][fieldArrayName] != null) {
+            console.log(state[formName][fieldArrayName]);
+            dispatch({
+              type: "change-form",
+              payload: {
+                [formName]: { [fieldArrayName]: { ...state[formName][fieldArrayName], [fieldName]: value } }
+              }
+            });
+          } else {
+            dispatch({
+              type: "change-form",
+              payload: {
+                [formName]: { [fieldArrayName]: { [fieldName]: value } }
+              }
+            }); 
+          }
+        } else {
+          dispatch({
             type: "change-form",
-            payload: {
-              [formName]: { [fieldArrayName]: { [fieldName]: value } }
-            }
+            payload: { [formName]: { [fieldName]: value } }
           });
         }
-        return dispatch({
-          type: "change-form",
-          payload: { [formName]: { [fieldName]: value } }
-        });
       }
-    };
+    }
     document.addEventListener("change", inputChange);
     return () => {
       document.removeEventListener("change", inputChange);
     };
-  }, [ref, dispatch, fieldArrayName, fieldName, formName, type]);
+  }, [ref, dispatch, fieldArrayName, fieldName, formName, type, state]);
+  
 };
 
 export default useInputChange;

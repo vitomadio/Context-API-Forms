@@ -1,7 +1,7 @@
 import React from "react";
 
 const FieldArray = ({ formName, fieldArrayName, children }) => {
-  const childrenWithProps = React.Children.map(children, (child, index) => {
+  const childrenWithProps = React.Children.map(children, (child) => {
     return React.cloneElement(child, {
       fieldArrayName,
       formName,

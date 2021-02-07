@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { store } from "./store";
-import Form from "./Form";
-import Field from "./Field";
-import Input from "./input-samples/Input";
-import TextArea from "./input-samples/TextArea";
-import Selector from "./input-samples/Selector";
-import FieldArray from "./FieldArray";
+import { formStore } from "./lib/store";
+import Form from "./lib/Form";
+import Field from "./lib/Field";
+import Input from "./lib/input-samples/Input";
+import TextArea from "./lib/input-samples/TextArea";
+import Selector from "./lib/input-samples/Selector";
+import FieldArray from "./lib/FieldArray";
 import Validation from "./utils/validations";
 
 import "./styles.css";
@@ -13,9 +13,7 @@ import "./styles.css";
 const Required = Validation.required;
 
 export default function App() {
-  const { state } = useContext(store);
-
-  
+  const { state } = useContext(formStore);
 
   return (
     <div className="App">
