@@ -1,35 +1,38 @@
-import React, { useRef } from "react";
-import useInputChange from "../useInputChange";
-import useValidate from "../useValidate";
+import React, { useRef } from 'react';
+import useConfigField from '../useConfigField';
+import useInputChange from '../useInputChange';
+import useValidate from '../useValidate';
 
 const Field = ({
-  type,
-  formName,
-  fieldName,
-  fieldArrayName,
-  validations,
-  label,
-  placeholder,
-  children,
-  key
-}) => {
-  const inputRef = useRef(null);
-  useInputChange(inputRef, type, formName, fieldName, fieldArrayName);
-  const error = useValidate(inputRef, validations);
-  const childrenWithProps = React.cloneElement(children, {
+    key,
     type,
+    formName,
+    fieldName,
+    fieldArrayName,
+    validations,
     label,
     placeholder,
-    name: fieldName,
-    error
-  });
-  return (
-    <>
-      <div key={key} ref={inputRef}>
-        {childrenWithProps}
-      </div>
-    </>
-  );
+    children,
+}) => {
+    const inputRef = useRef(null);
+    const defaultValue = useConfigField(formName, fieldName, fieldArrayName);
+    useInputChange(inputRef, type, formName, fieldName, fieldArrayName);
+    const error = useValidate(inputRef, validations);
+    const childrenWithProps = React.cloneElement(children, {
+        type,
+        label,
+        placeholder,
+        name: fieldName,
+        error,
+        defaultValue,
+    });
+    return (
+        <>
+            <div key={key} ref={inputRef}>
+                {childrenWithProps}
+            </div>
+        </>
+    );
 };
 
 export default Field;
