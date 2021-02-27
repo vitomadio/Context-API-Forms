@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { formStore } from "./lib/store";
 import Form from "./lib/Form";
 import Field from "./lib/Field";
-import Input from "./lib/input-samples/Input";
-import TextArea from "./lib/input-samples/TextArea";
-import Selector from "./lib/input-samples/Selector";
+import Input from "./input-samples/Input";
+import TextArea from "./input-samples/TextArea";
+import Selector from "./input-samples/Selector";
 import FieldArray from "./lib/FieldArray";
 import Validation from "./utils/validations";
 
