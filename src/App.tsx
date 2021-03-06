@@ -5,7 +5,9 @@ import useSetInitialValues from './lib/useSetInitialValues';
 
 import './styles.css';
 
-const App = () => {
+const App: React.FC = (): JSX.Element => {
+    const { formState }: any = useContext<object>(formStore);
+
     useSetInitialValues({
         'my-form': {
             name: 'Vito',
@@ -17,8 +19,6 @@ const App = () => {
             },
         },
     });
-
-    const { formState } = useContext(formStore);
 
     return (
         <div className="App">

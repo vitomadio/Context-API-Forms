@@ -1,10 +1,10 @@
 ### Context-Api-Forms
 
-Is a Higher Order Component that uses Context API to keep form state in a context api store.
+Is a very lightweight Higher Order Component that uses Context API to manage form state.
 
 #### Motivation
 
-Looking for a lightest alternative to redux-forms for managing forms state.
+Looking for a lighter alternative to redux-forms in order to manage form state.
 
 #### Instalation
 
@@ -59,7 +59,7 @@ import { Form, Field } from 'context-api-form';
 <Form>
 ```
 
-**4.** Also if you need a nested form, you can use a FieldArray as follows:
+**4.** Also if you need a nested form, you can use a FormSection as follows:
 
 ```
 import { Form, Field, FieldArrayForm } from 'context-api-form';
@@ -69,7 +69,7 @@ import { Form, Field, FieldArrayForm } from 'context-api-form';
     <Field fieldName="name" label="Name">
         </Input> // Your custom child component here.
     </Field>
-    <FieldArray fieldArrayName="address">
+    <FormSection fieldArrayName="address">
         <Field fieldName="steet" type="text">
             <Input />
         </Field>
@@ -79,7 +79,7 @@ import { Form, Field, FieldArrayForm } from 'context-api-form';
         <Field fieldName="zip-code" type="text">
             <Input />
         </Field>
-    </FieldArray>
+    </FormSection>
 <Form>
 ```
 
@@ -89,7 +89,7 @@ It will result in the following object representation:
 {
     my-form: {
         name: 'name',
-        adress: {
+        address: {
             street: '4th Avenue S.W.Calgary,',
             city: 'Ablerta',
             zip-code: '12345'
@@ -107,10 +107,22 @@ import { formStore } from 'context-api-forms';
 const {state} = React.useContext(formStore);
 ```
 
-#### Field properties:
+#### Form
+
+Acting as a html form tag, Form component is use to give a name to the form in the context state.
+
+#### Properties:
+
+-   **formName \<string> [Required]**: The only property needed and required to name your form.
+
+#### Field
+
+Is a Hight Order Component which wraps input types children components in order to entablish a connection with the Context Api.
+
+#### Properties:
 
 -   **key \<string>**: Passes an unique key to child component.
--   **forName \<string>**: Used for naming your input, the same will be used to name the field in the state.
+-   **fieldName \<string> [Required]**: Used for naming your input, the same will be used to name the field in the state.
 -   **type \<string>**: Used for input type.
 -   **placeholder \<string>**: Html placeholder attribute.
 -   **label \<string>**: Used for labeling fields.
@@ -118,9 +130,17 @@ const {state} = React.useContext(formStore);
 -   **validations \<[function]>**: Used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
 -   **defaultValue \<any>**: In case of any default value exists it will be passed through "defaultValue" property.
 
+#### FormSection
+
+We can use FormSection to gather many fields in a group of fields, it works kind of a nested form.
+
+#### Properties:
+
+-   **FormSectionName \<string> [Required]**: Used for naming your nested group of fields.
+
 #### Form validations
 
-You can use your own form validations functions, just pass the validations as an array of functions. The returned value of these validations functions must be a boolean, where true will trigger an error and false won't.
+Use your own form validations functions, just pass the validations as an array of functions. The returned value of these validations functions must be a boolean, where true will trigger an error and false won't.
 
 Example of how to use custom validations:
 

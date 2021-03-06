@@ -1,8 +1,12 @@
 import { useContext } from 'react';
 import { formStore } from '../store';
 
-const useConfigField = (formName, fieldName, fieldArrayName) => {
-    const { formState } = useContext(formStore);
+const useConfigField = (
+    formName: string,
+    fieldName: string,
+    fieldArrayName: string | undefined
+): object | null => {
+    const { formState }: any = useContext(formStore);
     if (formState[formName]) {
         if (fieldArrayName && formState[formName][fieldArrayName]) {
             return formState[formName][fieldArrayName][fieldName];
