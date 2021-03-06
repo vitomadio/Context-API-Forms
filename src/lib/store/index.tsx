@@ -1,11 +1,20 @@
 import React, { createContext, useReducer } from 'react';
 
-const initialState = {};
-const formStore = createContext(initialState);
+interface IFormProviderProps {
+    children: JSX.Element[] | JSX.Element;
+}
+
+export interface IAction {
+    type: string;
+    payload: object;
+}
+
+const initialState: any = {};
+const formStore: React.Context<any> = createContext<object>(initialState);
 const { Provider } = formStore;
 
-const FormProvider = ({ children }) => {
-    const [formState, dispatch] = useReducer((state, action) => {
+const FormProvider = ({ children }: IFormProviderProps): JSX.Element => {
+    const [formState, dispatch] = useReducer((state: any, action: IAction) => {
         switch (action.type) {
             case 'change-form':
                 return {

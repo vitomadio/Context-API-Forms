@@ -1,12 +1,19 @@
 import { useContext, useEffect } from 'react';
 import { formStore } from '../store';
 
-const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
+const useInputChange = (
+    ref: { current: HTMLElement },
+    type: string | undefined,
+    formName: string,
+    fieldName: string,
+    fieldArrayName: string | undefined
+): void => {
     const { formState, dispatch } = useContext(formStore);
     useEffect(() => {
         const current = ref.current;
-        const inputChange = (event) => {
-            let value = event.target.value || null;
+        const inputChange = (event: Event): any => {
+            const target = event.target as HTMLInputElement;
+            let value: any = target.value || null;
             if (type === 'number') {
                 if (!value || value === 0) {
                     value = null;
@@ -14,7 +21,7 @@ const useInputChange = (ref, type, formName, fieldName, fieldArrayName) => {
                 value = parseInt(value);
             }
             if (type === 'checkbox') {
-                value = event.target.checked;
+                value = target.checked;
                 if (value !== true) {
                     value = false;
                 }

@@ -1,13 +1,13 @@
 import Form from './Form';
 import Field from './Field';
-import FieldArray from './FieldArray';
+import FormSection from './FormSection';
 import useSetInitialValues from './useSetInitialValues';
 import { formStore, FormProvider } from './store';
 
 export {
     Form,
     Field,
-    FieldArray,
+    FormSection,
     FormProvider,
     formStore,
     useSetInitialValues,
