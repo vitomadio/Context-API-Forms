@@ -1,28 +1,35 @@
 import React from 'react';
 
-export interface IFieldArrayProps {
+export interface IFormSectionProps {
     formName?: string;
-    fieldArrayName: string;
+    name: string;
+    label?: string;
     children: React.ReactElement<any>[];
 }
 
 const FormSection = ({
     formName,
-    fieldArrayName,
+    name,
+    label,
     children,
-}: IFieldArrayProps): JSX.Element => {
+}: IFormSectionProps): JSX.Element => {
     const childrenWithProps: React.ReactElement<any>[] = React.Children.map(
         children,
         (child) => {
             return React.cloneElement(child, {
-                fieldArrayName,
+                formSectionName: name,
                 formName,
                 key: child.props.fieldName,
             });
         }
     );
 
-    return <div>{childrenWithProps}</div>;
+    return (
+        <>
+            <label htmlFor={name}>{label && `${label}: `}</label>
+            <div id={name}>{childrenWithProps}</div>
+        </>
+    );
 };
 
 export default FormSection;

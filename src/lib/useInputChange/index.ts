@@ -4,7 +4,7 @@ import { formStore } from '../store';
 const useInputChange = (
     ref: { current: HTMLElement },
     type: string | undefined,
-    formName: string,
+    formName: string | undefined,
     fieldName: string,
     fieldArrayName: string | undefined
 ): void => {
@@ -26,37 +26,39 @@ const useInputChange = (
                     value = false;
                 }
             }
-            if (fieldArrayName) {
-                if (
-                    formState[formName] &&
-                    formState[formName][fieldArrayName] != null
-                ) {
-                    dispatch({
-                        type: 'change-form',
-                        payload: {
-                            [formName]: {
-                                [fieldArrayName]: {
-                                    ...formState[formName][fieldArrayName],
-                                    [fieldName]: value,
+            if (formName) {
+                if (fieldArrayName) {
+                    if (
+                        formState[formName] &&
+                        formState[formName][fieldArrayName] != null
+                    ) {
+                        dispatch({
+                            type: 'change-form',
+                            payload: {
+                                [formName]: {
+                                    [fieldArrayName]: {
+                                        ...formState[formName][fieldArrayName],
+                                        [fieldName]: value,
+                                    },
                                 },
                             },
-                        },
-                    });
+                        });
+                    } else {
+                        dispatch({
+                            type: 'change-form',
+                            payload: {
+                                [formName]: {
+                                    [fieldArrayName]: { [fieldName]: value },
+                                },
+                            },
+                        });
+                    }
                 } else {
                     dispatch({
                         type: 'change-form',
-                        payload: {
-                            [formName]: {
-                                [fieldArrayName]: { [fieldName]: value },
-                            },
-                        },
+                        payload: { [formName]: { [fieldName]: value } },
                     });
                 }
-            } else {
-                dispatch({
-                    type: 'change-form',
-                    payload: { [formName]: { [fieldName]: value } },
-                });
             }
         };
         ref.current.addEventListener('change', inputChange);

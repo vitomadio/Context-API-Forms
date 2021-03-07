@@ -4,7 +4,7 @@ Is a very lightweight Higher Order Component that uses Context API to manage for
 
 #### Motivation
 
-Looking for a lighter alternative to redux-forms in order to manage form state.
+Looking for a lighter alternative to redux-forms in order to manage form state with context.
 
 #### Instalation
 
@@ -14,7 +14,7 @@ or
 
 #### How to use
 
-**1.** Wrap your app root component:
+**1.** Wrap your app root component with FormProvider:
 
 ```
 import {FormProvider} from 'context-api-forms';
@@ -24,7 +24,7 @@ import {FormProvider} from 'context-api-forms';
 </FormProvider>
 ```
 
-**2.** Prepare your child component:
+**2.** Prepare your a custom child component for your different fields:
 
 ```
 import React from 'react';
@@ -44,46 +44,36 @@ const Input = ({ type, error, name, ...props }) => {
 export default Input;
 ```
 
-This could be an input, select or textarea.
+This could be any type of HTML input type.
 
-**3.** Wrap your custom child component with context-api-forms wrappers.
+**3.** Use your custom component as a prop in a Field component, this will add all the logic to update the state.
 
 ```
 import { Form, Field } from 'context-api-form';
     // Some code here...
 
-<Form formName="my-form">
-    <Field fieldName="name" label="Name">
-        </Input> // Your custom child component here.
-    </Field>
+<Form name="my-form">
+    <Field fieldName="name" label="Name" component={<Input />} />
 <Form>
 ```
 
-**4.** Also if you need a nested form, you can use a FormSection as follows:
+**4.** In case you need a nested form, you can use a FormSection as follows:
 
 ```
 import { Form, Field, FieldArrayForm } from 'context-api-form';
     // Some code here...
 
 <Form formName="my-form">
-    <Field fieldName="name" label="Name">
-        </Input> // Your custom child component here.
-    </Field>
-    <FormSection fieldArrayName="address">
-        <Field fieldName="steet" type="text">
-            <Input />
-        </Field>
-        <Field fieldName="city" type="text">
-            <Input />
-        </Field>
-        <Field fieldName="zip-code" type="text">
-            <Input />
-        </Field>
+    <Field name="name" label="Name" component={<Input />} />
+    <FormSection name="address">
+        <Field name="steet" type="text" component={<Input />} />
+        <Field name="city" type="text" component={<Input />} />
+        <Field name="zip-code" type="text" component={<Input />} />
     </FormSection>
 <Form>
 ```
 
-It will result in the following object representation:
+Te example above will result in the following object representation:
 
 ```
 {
@@ -104,16 +94,19 @@ It will result in the following object representation:
 import { formStore } from 'context-api-forms';
     // Some code here...
 
-const {state} = React.useContext(formStore);
+const {formState} = React.useContext(formStore);
+console.log(formState)
 ```
+
+**NOTE:** We recommend using formState as the name of the state in order to avoid confusions with other states.
 
 #### Form
 
-Acting as a html form tag, Form component is use to give a name to the form in the context state.
+Acting as a html form tag, Form component is used to give a name to the form in the context state.
 
 #### Properties:
 
--   **formName \<string> [Required]**: The only property needed and required to name your form.
+-   **name \<string> [Required]**: The only property needed and required to name your form.
 
 #### Field
 
@@ -122,7 +115,7 @@ Is a Hight Order Component which wraps input types children components in order 
 #### Properties:
 
 -   **key \<string>**: Passes an unique key to child component.
--   **fieldName \<string> [Required]**: Used for naming your input, the same will be used to name the field in the state.
+-   **name \<string> [Required]**: Used for naming your input, the same will be used to name the field in the state.
 -   **type \<string>**: Used for input type.
 -   **placeholder \<string>**: Html placeholder attribute.
 -   **label \<string>**: Used for labeling fields.
@@ -132,11 +125,11 @@ Is a Hight Order Component which wraps input types children components in order 
 
 #### FormSection
 
-We can use FormSection to gather many fields in a group of fields, it works kind of a nested form.
+The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub group. Allowing to make multiple levels of nested fields.
 
 #### Properties:
 
--   **FormSectionName \<string> [Required]**: Used for naming your nested group of fields.
+-   **name \<string> [Required]**: Used for naming your nested group of fields.
 
 #### Form validations
 

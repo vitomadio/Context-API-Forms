@@ -10,12 +10,12 @@ const App: React.FC = (): JSX.Element => {
 
     useSetInitialValues({
         'my-form': {
-            name: 'Vito',
-            lastname: 'Madio',
+            name: 'Jhon',
+            lastname: 'Doe',
             sex: 'Male',
             'receive-email': true,
             address: {
-                street: 'Via Benigno Zaccagnini 10',
+                street: '4th Avenue S.W.Calgary,',
             },
         },
     });
