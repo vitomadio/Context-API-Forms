@@ -1,22 +1,22 @@
 import React from 'react';
 
 export interface IFormProps {
-    formName: string;
+    name: string;
     children: React.ReactElement<any>[];
 }
 
-const Form = ({ formName, children }: IFormProps): JSX.Element => {
+const Form = ({ name, children }: IFormProps): JSX.Element => {
     const childrenWithProps: React.ReactElement<any>[] = React.Children.map(
         children,
         (child) => {
             return React.cloneElement(child, {
-                formName,
+                formName: name,
                 key: child.props.fieldName,
             });
         }
     );
 
-    return <form name={formName}>{childrenWithProps}</form>;
+    return <form>{name && childrenWithProps}</form>;
 };
 
 export default Form;

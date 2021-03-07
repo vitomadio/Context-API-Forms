@@ -70,27 +70,11 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form
-        name="myForm"
-      >
-        <div>
-          <label>
-            <input />
-          </label>
-        </div>
-      </form>
+      <form />
     </div>
   </body>,
   "container": <div>
-    <form
-      name="myForm"
-    >
-      <div>
-        <label>
-          <input />
-        </label>
-      </div>
-    </form>
+    <form />
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

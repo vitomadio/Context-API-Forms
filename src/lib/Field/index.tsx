@@ -7,44 +7,52 @@ export interface IFieldProps {
     key?: string;
     type?: string;
     formName?: string;
-    fieldName: string;
-    fieldArrayName?: string;
+    name: string;
+    formSectionName?: string;
     validations?: Array<Function>;
     label?: string;
     placeholder?: string;
-    children: React.ReactElement<any>;
+    component: React.ReactElement<any>;
 }
 
-const Field = ({
+const Field: React.FC<IFieldProps> = ({
     key,
     type,
-    formName = '',
-    fieldName,
-    fieldArrayName,
+    formName,
+    name,
+    formSectionName,
     validations,
     label,
     placeholder,
-    children,
-}: IFieldProps): React.ReactElement<any> => {
+    component,
+}: IFieldProps): JSX.Element => {
     const inputRef = useRef<any>(null);
-    const defaultValue = useConfigField(formName, fieldName, fieldArrayName);
-    useInputChange(inputRef, type, formName, fieldName, fieldArrayName);
+
+    // Sets fields with initial values.
+    const defaultValue = useConfigField(formName, name, formSectionName);
+
+    // Handles input changes.
+    useInputChange(inputRef, type, formName, name, formSectionName);
+
+    // Checks validations.
     const error: boolean = useValidate(inputRef, validations);
-    const childrenWithProps: React.ReactElement<any> = React.cloneElement(
-        children,
+
+    const childComponent: React.ReactElement<any> = React.cloneElement(
+        component,
         {
             type,
             label,
             placeholder,
-            name: fieldName,
+            fieldName: name,
             error,
             defaultValue,
         }
     );
+
     return (
         <>
             <div key={key} ref={inputRef}>
-                {childrenWithProps}
+                {childComponent}
             </div>
         </>
     );

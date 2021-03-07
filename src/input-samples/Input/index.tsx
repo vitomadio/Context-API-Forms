@@ -15,17 +15,12 @@ const Input: React.FC<IInputProps> = ({
     name,
     label,
     defaultValue,
-}: IInputProps): React.ReactElement<any> => {
+}: IInputProps): JSX.Element => {
     return (
         <>
             <label htmlFor={name}>
                 {label && `${label}: `}
-                <input
-                    type={type}
-                    id={name}
-                    checked={defaultValue}
-                    defaultValue={defaultValue}
-                />
+                <input type={type} id={name} defaultValue={defaultValue} />
                 {error && <p>Required</p>}
             </label>
         </>
