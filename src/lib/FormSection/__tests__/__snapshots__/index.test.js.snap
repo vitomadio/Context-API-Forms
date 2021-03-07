@@ -5,10 +5,12 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <label />
       <div />
     </div>
   </body>,
   "container": <div>
+    <label />
     <div />
   </div>,
   "debug": [Function],
@@ -70,24 +72,26 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
-        name="Adress"
-      >
+      <label />
+      <div>
         <div>
           <label>
-            <input />
+            <input
+              value=""
+            />
           </label>
         </div>
       </div>
     </div>
   </body>,
   "container": <div>
-    <div
-      name="Adress"
-    >
+    <label />
+    <div>
       <div>
         <label>
-          <input />
+          <input
+            value=""
+          />
         </label>
       </div>
     </div>

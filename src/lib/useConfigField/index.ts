@@ -2,14 +2,14 @@ import { useContext } from 'react';
 import { formStore } from '../store';
 
 const useConfigField = (
-    formName: string,
+    formName: string | undefined,
     fieldName: string,
-    fieldArrayName: string | undefined
+    formSectionName: string | undefined
 ): object | null => {
     const { formState }: any = useContext(formStore);
-    if (formState[formName]) {
-        if (fieldArrayName && formState[formName][fieldArrayName]) {
-            return formState[formName][fieldArrayName][fieldName];
+    if (formState && formName && formState[formName]) {
+        if (formSectionName && formState[formName][formSectionName]) {
+            return formState[formName][formSectionName][fieldName];
         }
         return formState[formName][fieldName];
     }
