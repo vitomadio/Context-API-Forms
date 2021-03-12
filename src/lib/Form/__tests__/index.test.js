@@ -16,6 +16,7 @@ describe('Form', () => {
             <Form
                 formName={'myForm'}
                 children={<Field children={<Input />} />}
+                handleSubmit={() => {}}
             />
         );
         expect(form).toMatchSnapshot();

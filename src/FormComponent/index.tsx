@@ -9,9 +9,15 @@ import Validation from '../utils/validations';
 
 const Required = Validation.required;
 
-const FormComponent: React.FC = (): JSX.Element => {
+interface IFormComponentProps {
+    onSubmit: Function;
+}
+
+const FormComponent: React.FC<IFormComponentProps> = ({
+    onSubmit,
+}: IFormComponentProps): JSX.Element => {
     return (
-        <Form name="my-form">
+        <Form name="my-form" handleSubmit={onSubmit}>
             <Field
                 name="name"
                 label="Name"
@@ -53,6 +59,7 @@ const FormComponent: React.FC = (): JSX.Element => {
                 <Field name="city" type="text" component={<Input />} />
                 <Field name="zip-code" type="text" component={<Input />} />
             </FormSection>
+            <button type="submit">Print state</button>
         </Form>
     );
 };
