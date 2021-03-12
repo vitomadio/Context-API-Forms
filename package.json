@@ -1,6 +1,6 @@
 {
     "name": "context-api-forms",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A lightweight Higher Order Component which uses context-api to manage form state",
     "main": "dist/index.js",
     "private": false,
