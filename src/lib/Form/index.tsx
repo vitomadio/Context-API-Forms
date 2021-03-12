@@ -1,11 +1,14 @@
 import React from 'react';
+import useGetValuesFromState from 'lib/utils/useGetValuesFromState';
 
 export interface IFormProps {
     name: string;
     children: React.ReactElement<any>[];
+    handleSubmit: Function;
 }
 
-const Form = ({ name, children }: IFormProps): JSX.Element => {
+const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
+    const values = useGetValuesFromState(name);
     const childrenWithProps: React.ReactElement<any>[] = React.Children.map(
         children,
         (child) => {
@@ -16,7 +19,16 @@ const Form = ({ name, children }: IFormProps): JSX.Element => {
         }
     );
 
-    return <form>{name && childrenWithProps}</form>;
+    return (
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(values);
+            }}
+        >
+            {name && childrenWithProps}
+        </form>
+    );
 };
 
 export default Form;

@@ -1,18 +1,18 @@
-### Context-Api-Forms
+## Context-Api-Forms
 
 Is a very lightweight Higher Order Component that uses Context API to manage form state.
 
-#### Motivation
+### Motivation
 
 Looking for a lighter alternative to redux-forms in order to manage form state with context.
 
-#### Instalation
+### Instalation
 
 `$ npm install --save context-api-form`
 or
 `$ yarn add context-api-form`
 
-#### How to use
+### How to use
 
 **1.** Wrap your app root component with FormProvider:
 
@@ -52,7 +52,7 @@ This could be any type of HTML input type.
 import { Form, Field } from 'context-api-form';
     // Some code here...
 
-<Form name="my-form">
+<Form name="my-form" handleSubmit={onSubmit}>
     <Field fieldName="name" label="Name" component={<Input />} />
 <Form>
 ```
@@ -63,7 +63,7 @@ import { Form, Field } from 'context-api-form';
 import { Form, Field, FieldArrayForm } from 'context-api-form';
     // Some code here...
 
-<Form formName="my-form">
+<Form formName="my-form" handleSubmit={onSubmit}>
     <Field name="name" label="Name" component={<Input />} />
     <FormSection name="address">
         <Field name="steet" type="text" component={<Input />} />
@@ -100,19 +100,20 @@ console.log(formState)
 
 **NOTE:** We recommend using formState as the name of the state in order to avoid confusions with other states.
 
-#### Form
+### Form
 
 Acting as a html form tag, Form component is used to give a name to the form in the context state.
 
-#### Properties:
+### Properties:
 
 -   **name \<string> [Required]**: The only property needed and required to name your form.
+-   **handleSubmit \<Function> [Required]**: Recives a function from parent component and injects the form values into it.
 
-#### Field
+### Field
 
 Is a Hight Order Component which wraps input types children components in order to entablish a connection with the Context Api.
 
-#### Properties:
+### Properties:
 
 -   **key \<string>**: Passes an unique key to child component.
 -   **name \<string> [Required]**: Used for naming your input, the same will be used to name the field in the state.
@@ -123,15 +124,15 @@ Is a Hight Order Component which wraps input types children components in order 
 -   **validations \<[function]>**: Used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
 -   **defaultValue \<any>**: In case of any default value exists it will be passed through "defaultValue" property.
 
-#### FormSection
+### FormSection
 
 The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub group. Allowing to make multiple levels of nested fields.
 
-#### Properties:
+### Properties:
 
 -   **name \<string> [Required]**: Used for naming your nested group of fields.
 
-#### Form validations
+### Form validations
 
 Use your own form validations functions, just pass the validations as an array of functions. The returned value of these validations functions must be a boolean, where true will trigger an error and false won't.
 
@@ -148,7 +149,7 @@ return !value || value === "" ? true : false;
 </Field>
 ```
 
-#### Initial Values
+### Initial Values
 
 You can initialize your form with default values using the **useSetInitialValues** hook in an upper component in the tree.
 Call the hook sending the form as a tree object in parameters.

@@ -1,7 +1,7 @@
 import Form from './Form';
 import Field from './Field';
 import FormSection from './FormSection';
-import useSetInitialValues from './useSetInitialValues';
+import useSetInitialValues from './utils/useSetInitialValues';
 import { formStore, FormProvider } from './store';
 
 export {

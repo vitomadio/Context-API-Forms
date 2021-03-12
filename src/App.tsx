@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { formStore } from './lib/store';
+import { formStore } from 'lib/store';
 import FormComponent from './FormComponent';
-import useSetInitialValues from './lib/useSetInitialValues';
+import useSetInitialValues from 'lib/utils/useSetInitialValues';
 
 import './styles.css';
 
@@ -22,7 +22,7 @@ const App: React.FC = (): JSX.Element => {
 
     return (
         <div className="App">
-            <FormComponent />
+            <FormComponent onSubmit={(values: any) => console.log(values)} />
             {JSON.stringify(formState, null, 4)};
         </div>
     );
