@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { formStore } from 'lib/store';
+import { formStore } from '../../store';
 
 const useInputChange = (
     ref: { current: HTMLElement },

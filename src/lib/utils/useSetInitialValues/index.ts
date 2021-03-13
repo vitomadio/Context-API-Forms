@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
-import { formStore } from 'lib/store';
+import { formStore } from '../../store';
 
 const useSetInitialValues = (initialValues: any): void => {
     const { dispatch } = useContext(formStore);
