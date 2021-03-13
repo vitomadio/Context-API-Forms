@@ -1,5 +1,5 @@
 import React from 'react';
-import useGetValuesFromState from 'lib/utils/useGetValuesFromState';
+import useGetValuesFromState from '../utils/useGetValuesFromState';
 
 export interface IFormProps {
     name: string;
