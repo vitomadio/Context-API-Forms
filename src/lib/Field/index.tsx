@@ -4,11 +4,13 @@ import useInputChange from '../utils/useInputChange';
 import useValidate from '../utils/useValidate';
 
 export interface IFieldProps {
+    index?: number;
     key?: string;
     type?: string;
     formName?: string;
     name: string;
     formSectionName?: string;
+    fieldArrayName?: string;
     validations?: Array<Function>;
     label?: string;
     placeholder?: string;
@@ -16,11 +18,13 @@ export interface IFieldProps {
 }
 
 const Field: React.FC<IFieldProps> = ({
+    index,
     key,
     type,
     formName,
     name,
     formSectionName,
+    fieldArrayName,
     validations,
     label,
     placeholder,
@@ -32,7 +36,15 @@ const Field: React.FC<IFieldProps> = ({
     const defaultValue = useConfigField(formName, name, formSectionName);
 
     // Handles input changes.
-    useInputChange(inputRef, type, formName, name, formSectionName);
+    useInputChange(
+        inputRef,
+        type,
+        formName,
+        name,
+        formSectionName,
+        fieldArrayName,
+        index
+    );
 
     // Checks validations.
     const error: boolean = useValidate(inputRef, validations);

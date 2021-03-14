@@ -6,7 +6,9 @@ const useInputChange = (
     type: string | undefined,
     formName: string | undefined,
     fieldName: string,
-    fieldArrayName: string | undefined
+    formSectionName: string | undefined,
+    fieldArrayName: string | undefined,
+    index: number | undefined
 ): void => {
     const { formState, dispatch } = useContext(formStore);
     useEffect(() => {
@@ -27,17 +29,17 @@ const useInputChange = (
                 }
             }
             if (formName) {
-                if (fieldArrayName) {
+                if (formSectionName) {
                     if (
                         formState[formName] &&
-                        formState[formName][fieldArrayName] != null
+                        formState[formName][formSectionName] != null
                     ) {
                         dispatch({
                             type: 'change-form',
                             payload: {
                                 [formName]: {
-                                    [fieldArrayName]: {
-                                        ...formState[formName][fieldArrayName],
+                                    [formSectionName]: {
+                                        ...formState[formName][formSectionName],
                                         [fieldName]: value,
                                     },
                                 },
@@ -48,10 +50,47 @@ const useInputChange = (
                             type: 'change-form',
                             payload: {
                                 [formName]: {
-                                    [fieldArrayName]: { [fieldName]: value },
+                                    [formSectionName]: { [fieldName]: value },
                                 },
                             },
                         });
+                    }
+                } else if (fieldArrayName && index != null) {
+                    if (
+                        formState[formName] &&
+                        formState[formName][fieldArrayName] != null &&
+                        Object.keys(formState[formName][fieldArrayName])
+                            .length !== 0
+                    ) {
+                        if (!fieldName) {
+                            dispatch({
+                                type: 'change-form',
+                                payload: {
+                                    [formName]: {
+                                        [fieldArrayName]: formState[formName][
+                                            fieldArrayName
+                                        ].map((field: object, i: number) =>
+                                            i === index ? value : field
+                                        ),
+                                    },
+                                },
+                            });
+                        } else {
+                            dispatch({
+                                type: 'change-form',
+                                payload: {
+                                    [formName]: {
+                                        [fieldArrayName]: formState[formName][
+                                            fieldArrayName
+                                        ].map((field: object, i: number) =>
+                                            i === index
+                                                ? { [fieldName]: value }
+                                                : field
+                                        ),
+                                    },
+                                },
+                            });
+                        }
                     }
                 } else {
                     dispatch({
@@ -65,7 +104,7 @@ const useInputChange = (
         return () => {
             current.removeEventListener('change', inputChange);
         };
-    }, [ref, dispatch, fieldArrayName, fieldName, formName, type, formState]);
+    }, [ref, dispatch, formSectionName, fieldName, formName, type, formState]);
 };
 
 export default useInputChange;
