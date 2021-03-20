@@ -98,6 +98,33 @@ const useInputChange = (
                         payload: { [formName]: { [fieldName]: value } },
                     });
                 }
+            } else if (formState) {
+                if (fieldName.includes('.')) {
+                    const [
+                        index,
+                        formName,
+                        fieldArrayName,
+                        name,
+                    ] = fieldName.split('.');
+                    dispatch({
+                        type: 'change-form',
+                        payload: {
+                            [formName]: {
+                                [fieldArrayName]: formState[formName][
+                                    fieldArrayName
+                                ].map((field: object, i: number) => {
+                                    if (
+                                        !Object.keys(field).length &&
+                                        i === parseInt(index)
+                                    ) {
+                                        return { [name]: value };
+                                    }
+                                    return field;
+                                }),
+                            },
+                        },
+                    });
+                }
             }
         };
         ref.current.addEventListener('change', inputChange);

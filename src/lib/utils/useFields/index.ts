@@ -18,34 +18,17 @@ const useFields = (formName: string | undefined, fieldName: string) => {
                 const arr = [];
                 for (let i = 0; i < this.val.length; i++) {
                     arr.push(
-                        func(
-                            {
-                                index: i,
-                                name: this.val[i],
-                                fieldArrayName: fieldName,
-                                formName: formName,
-                            },
-                            i,
-                            this.val
-                        )
+                        func(`${i}.${formName}.${fieldName}`, i, this.val)
                     );
                 }
                 return arr;
             },
             push: function (this: any) {
-                if (formState[formName] && formState[formName][fieldName]) {
-                    this.val.push(formState[formName][fieldName].length + 1);
-                    return dispatch({
-                        type: 'change-form',
-                        payload: { [formName]: { [fieldName]: this.val } },
-                    });
-                } else {
-                    this.val.push(0);
-                    return dispatch({
-                        type: 'change-form',
-                        payload: { [formName]: { [fieldName]: this.val } },
-                    });
-                }
+                this.val.push({});
+                return dispatch({
+                    type: 'change-form',
+                    payload: { [formName]: { [fieldName]: this.val } },
+                });
             },
             remove: function (index: number) {
                 if (formState[formName] && formState[formName][fieldName]) {

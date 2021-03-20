@@ -16,8 +16,6 @@ const FieldArray: React.FC<IFieldArrayProps> = ({
     const childComponent: React.ReactElement<any> = React.cloneElement(
         component,
         {
-            fieldArrayName: name,
-            formName,
             fields,
         }
     );
