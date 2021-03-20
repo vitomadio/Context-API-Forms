@@ -18,7 +18,6 @@ export interface IFieldProps {
 }
 
 const Field: React.FC<IFieldProps> = ({
-    index,
     key,
     type,
     formName,
@@ -30,7 +29,7 @@ const Field: React.FC<IFieldProps> = ({
     placeholder,
     component,
 }: IFieldProps): JSX.Element => {
-    const inputRef = useRef<any>(null);
+    const inputRef = useRef<HTMLDivElement | null>(null);
 
     // Sets fields with initial values.
     const defaultValue = useConfigField(formName, name, formSectionName);
@@ -42,8 +41,7 @@ const Field: React.FC<IFieldProps> = ({
         formName,
         name,
         formSectionName,
-        fieldArrayName,
-        index
+        fieldArrayName
     );
 
     // Checks validations.
@@ -62,11 +60,9 @@ const Field: React.FC<IFieldProps> = ({
     );
 
     return (
-        <>
-            <div key={key} ref={inputRef}>
-                {childComponent}
-            </div>
-        </>
+        <div key={key} ref={inputRef}>
+            {childComponent}
+        </div>
     );
 };
 

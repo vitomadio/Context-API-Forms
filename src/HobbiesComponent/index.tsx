@@ -19,7 +19,7 @@ const HobbiesComponent: React.FC<any> = ({
         {fields &&
             fields.val &&
             fields.map((hobby: string, index: number) => (
-                <>
+                <div key={index}>
                     <button
                         type="button"
                         onClick={() => fields.remove(index, 1)}
@@ -32,7 +32,7 @@ const HobbiesComponent: React.FC<any> = ({
                         component={<Input />}
                         label={`Hobby #${index + 1}`}
                     />
-                </>
+                </div>
             ))}
     </>
 );

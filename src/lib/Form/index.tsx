@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { isValidReactComponent } from './utils';
 import useGetValuesFromState from '../utils/useGetValuesFromState';
 
 export interface IFormProps {
@@ -9,20 +10,24 @@ export interface IFormProps {
 
 const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
     const values = useGetValuesFromState(name);
-    const childrenWithProps: React.ReactElement<any>[] = React.Children.map(
-        children,
-        (child) => {
-            return React.cloneElement(child, {
-                formName: name,
-                key: child.props.fieldName,
-            });
-        }
+
+    const childrenWithProps: React.ReactElement<any>[] = useMemo(
+        () =>
+            React.Children.map(children, (child) => {
+                if (isValidReactComponent(child)) {
+                    return React.cloneElement(child, {
+                        formName: name,
+                        key: child.props.fieldName,
+                    });
+                }
+            }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [name]
     );
 
     return (
         <form
-            onSubmit={(e) => {
-                e.preventDefault();
+            onSubmit={() => {
                 handleSubmit(values);
             }}
         >

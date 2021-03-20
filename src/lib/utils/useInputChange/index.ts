@@ -1,137 +1,62 @@
 import { useContext, useEffect } from 'react';
+import {
+    setFormAction,
+    setFormSectionAction,
+    setFieldArrayAction,
+} from './actions';
+import { setValue } from './utils';
 import { formStore } from '../../store';
 
 const useInputChange = (
-    ref: { current: HTMLElement },
+    ref: { current: HTMLElement | null },
     type: string | undefined,
     formName: string | undefined,
     fieldName: string,
     formSectionName: string | undefined,
-    fieldArrayName: string | undefined,
-    index: number | undefined
+    fieldArrayName: string | undefined
 ): void => {
     const { formState, dispatch } = useContext(formStore);
     useEffect(() => {
         const current = ref.current;
         const inputChange = (event: Event): any => {
             const target = event.target as HTMLInputElement;
+            // Config value
             let value: any = target.value || null;
-            if (type === 'number') {
-                if (!value || value === 0) {
-                    value = null;
-                }
-                value = parseInt(value);
-            }
-            if (type === 'checkbox') {
-                value = target.checked;
-                if (value !== true) {
-                    value = false;
-                }
-            }
+            value = setValue(target, value, type);
+            // Dispatch actions for Fields and FormSections
             if (formName) {
                 if (formSectionName) {
-                    if (
-                        formState[formName] &&
-                        formState[formName][formSectionName] != null
-                    ) {
-                        dispatch({
-                            type: 'change-form',
-                            payload: {
-                                [formName]: {
-                                    [formSectionName]: {
-                                        ...formState[formName][formSectionName],
-                                        [fieldName]: value,
-                                    },
-                                },
-                            },
-                        });
-                    } else {
-                        dispatch({
-                            type: 'change-form',
-                            payload: {
-                                [formName]: {
-                                    [formSectionName]: { [fieldName]: value },
-                                },
-                            },
-                        });
-                    }
-                } else if (fieldArrayName && index != null) {
-                    if (
-                        formState[formName] &&
-                        formState[formName][fieldArrayName] != null &&
-                        Object.keys(formState[formName][fieldArrayName])
-                            .length !== 0
-                    ) {
-                        if (!fieldName) {
-                            dispatch({
-                                type: 'change-form',
-                                payload: {
-                                    [formName]: {
-                                        [fieldArrayName]: formState[formName][
-                                            fieldArrayName
-                                        ].map((field: object, i: number) =>
-                                            i === index ? value : field
-                                        ),
-                                    },
-                                },
-                            });
-                        } else {
-                            dispatch({
-                                type: 'change-form',
-                                payload: {
-                                    [formName]: {
-                                        [fieldArrayName]: formState[formName][
-                                            fieldArrayName
-                                        ].map((field: object, i: number) =>
-                                            i === index
-                                                ? { [fieldName]: value }
-                                                : field
-                                        ),
-                                    },
-                                },
-                            });
-                        }
-                    }
-                } else {
-                    dispatch({
-                        type: 'change-form',
-                        payload: { [formName]: { [fieldName]: value } },
-                    });
-                }
-            } else if (formState) {
-                if (fieldName.includes('.')) {
-                    const [
-                        index,
+                    setFormSectionAction(
+                        formState,
                         formName,
-                        fieldArrayName,
-                        name,
-                    ] = fieldName.split('.');
-                    dispatch({
-                        type: 'change-form',
-                        payload: {
-                            [formName]: {
-                                [fieldArrayName]: formState[formName][
-                                    fieldArrayName
-                                ].map((field: object, i: number) => {
-                                    if (
-                                        !Object.keys(field).length &&
-                                        i === parseInt(index)
-                                    ) {
-                                        return { [name]: value };
-                                    }
-                                    return field;
-                                }),
-                            },
-                        },
-                    });
+                        formSectionName,
+                        fieldName,
+                        value,
+                        dispatch
+                    );
+                } else {
+                    setFormAction(formName, fieldName, value, dispatch);
                 }
             }
+            // Dispatch actions for FieldArrays
+            if (formState && fieldName.includes('.')) {
+                setFieldArrayAction(formState, fieldName, value, dispatch);
+            }
         };
-        ref.current.addEventListener('change', inputChange);
+        if (ref.current) ref.current.addEventListener('change', inputChange);
         return () => {
-            current.removeEventListener('change', inputChange);
+            if (current) current.removeEventListener('change', inputChange);
         };
-    }, [ref, dispatch, formSectionName, fieldName, formName, type, formState]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        ref,
+        formState,
+        formName,
+        formSectionName,
+        fieldName,
+        fieldArrayName,
+        type,
+    ]);
 };
 
 export default useInputChange;
