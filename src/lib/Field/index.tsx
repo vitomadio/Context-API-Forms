@@ -1,14 +1,16 @@
 import React, { useRef } from 'react';
-import useConfigField from '../useConfigField';
-import useInputChange from '../useInputChange';
-import useValidate from '../useValidate';
+import useConfigField from '../utils/useConfigField';
+import useInputChange from '../utils/useInputChange';
+import useValidate from '../utils/useValidate';
 
 export interface IFieldProps {
+    index?: number;
     key?: string;
     type?: string;
     formName?: string;
     name: string;
     formSectionName?: string;
+    fieldArrayName?: string;
     validations?: Array<Function>;
     label?: string;
     placeholder?: string;
@@ -21,18 +23,26 @@ const Field: React.FC<IFieldProps> = ({
     formName,
     name,
     formSectionName,
+    fieldArrayName,
     validations,
     label,
     placeholder,
     component,
 }: IFieldProps): JSX.Element => {
-    const inputRef = useRef<any>(null);
+    const inputRef = useRef<HTMLDivElement | null>(null);
 
     // Sets fields with initial values.
     const defaultValue = useConfigField(formName, name, formSectionName);
 
     // Handles input changes.
-    useInputChange(inputRef, type, formName, name, formSectionName);
+    useInputChange(
+        inputRef,
+        type,
+        formName,
+        name,
+        formSectionName,
+        fieldArrayName
+    );
 
     // Checks validations.
     const error: boolean = useValidate(inputRef, validations);
@@ -50,11 +60,9 @@ const Field: React.FC<IFieldProps> = ({
     );
 
     return (
-        <>
-            <div key={key} ref={inputRef}>
-                {childComponent}
-            </div>
-        </>
+        <div key={key} ref={inputRef}>
+            {childComponent}
+        </div>
     );
 };
 

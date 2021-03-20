@@ -24,9 +24,6 @@ const FormProvider = ({ children }: IFormProviderProps): JSX.Element => {
                         ...Object.values(action.payload)[0],
                     },
                 };
-            case 'set-initial-values':
-                return { ...action.payload };
-
             default:
                 return state;
         }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const useValidate = (
-    ref: { current: HTMLElement },
+    ref: { current: HTMLElement | null },
     validations: Array<Function> | undefined
 ): boolean => {
     const [error, setError] = useState<boolean>(false);
@@ -17,9 +17,11 @@ const useValidate = (
                     return setError(validation(target.value));
                 });
             };
-            ref.current.addEventListener('focusout', validateInput);
+            if (ref.current)
+                ref.current.addEventListener('focusout', validateInput);
             return () => {
-                current.removeEventListener('focusout', validateInput);
+                if (current)
+                    current.removeEventListener('focusout', validateInput);
             };
         }
     }, [ref, validations]);
