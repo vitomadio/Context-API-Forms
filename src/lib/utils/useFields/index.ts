@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { formStore } from '../../store';
 
-const useFields = (formName: string | undefined, fieldName: string) => {
+const useFields: Function = (
+    formName: string | undefined,
+    fieldName: string
+): object | null => {
     const { formState, dispatch } = useContext<any>(formStore);
-
     let fields = null;
     if (formName && dispatch && formState) {
         fields = {
@@ -13,7 +15,6 @@ const useFields = (formName: string | undefined, fieldName: string) => {
                 formState[formName][fieldName]
                     ? formState[formName][fieldName]
                     : [],
-
             map: function (this: any, func: Function) {
                 const arr = [];
                 for (let i = 0; i < this.val.length; i++) {

@@ -7,7 +7,7 @@ import {
 import { setValue } from './utils';
 import { formStore } from '../../store';
 
-const useInputChange = (
+const useInputChange: Function = (
     ref: { current: HTMLElement | null },
     type: string | undefined,
     formName: string | undefined,
@@ -15,7 +15,7 @@ const useInputChange = (
     formSectionName: string | undefined,
     fieldArrayName: string | undefined
 ): void => {
-    const { formState, dispatch } = useContext(formStore);
+    const { formState, dispatch } = useContext<any>(formStore);
     useEffect(() => {
         const current = ref.current;
         const inputChange = (event: Event): any => {

@@ -2,7 +2,7 @@
 import { useContext, useEffect } from 'react';
 import { formStore } from '../../store';
 
-const useSetInitialValues = (initialValues: any): void => {
+const useSetInitialValues: Function = (initialValues: any): void => {
     const { dispatch } = useContext(formStore);
     useEffect(() => {
         dispatch({
