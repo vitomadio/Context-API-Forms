@@ -4,7 +4,6 @@ import useInputChange from '../utils/useInputChange';
 import useValidate from '../utils/useValidate';
 
 export interface IFieldProps {
-    index?: number;
     key?: string;
     type?: string;
     formName?: string;
