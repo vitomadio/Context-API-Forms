@@ -1,71 +1,62 @@
 import { useContext, useEffect } from 'react';
+import {
+    setFormAction,
+    setFormSectionAction,
+    setFieldArrayAction,
+} from './actions';
+import { setValue } from './utils';
 import { formStore } from '../../store';
 
-const useInputChange = (
-    ref: { current: HTMLElement },
+const useInputChange: Function = (
+    ref: { current: HTMLElement | null },
     type: string | undefined,
     formName: string | undefined,
     fieldName: string,
+    formSectionName: string | undefined,
     fieldArrayName: string | undefined
 ): void => {
-    const { formState, dispatch } = useContext(formStore);
+    const { formState, dispatch } = useContext<any>(formStore);
     useEffect(() => {
         const current = ref.current;
         const inputChange = (event: Event): any => {
             const target = event.target as HTMLInputElement;
+            // Config value
             let value: any = target.value || null;
-            if (type === 'number') {
-                if (!value || value === 0) {
-                    value = null;
-                }
-                value = parseInt(value);
-            }
-            if (type === 'checkbox') {
-                value = target.checked;
-                if (value !== true) {
-                    value = false;
-                }
-            }
+            value = setValue(target, value, type);
+            // Dispatch actions for Fields and FormSections
             if (formName) {
-                if (fieldArrayName) {
-                    if (
-                        formState[formName] &&
-                        formState[formName][fieldArrayName] != null
-                    ) {
-                        dispatch({
-                            type: 'change-form',
-                            payload: {
-                                [formName]: {
-                                    [fieldArrayName]: {
-                                        ...formState[formName][fieldArrayName],
-                                        [fieldName]: value,
-                                    },
-                                },
-                            },
-                        });
-                    } else {
-                        dispatch({
-                            type: 'change-form',
-                            payload: {
-                                [formName]: {
-                                    [fieldArrayName]: { [fieldName]: value },
-                                },
-                            },
-                        });
-                    }
+                if (formSectionName) {
+                    setFormSectionAction(
+                        formState,
+                        formName,
+                        formSectionName,
+                        fieldName,
+                        value,
+                        dispatch
+                    );
                 } else {
-                    dispatch({
-                        type: 'change-form',
-                        payload: { [formName]: { [fieldName]: value } },
-                    });
+                    setFormAction(formName, fieldName, value, dispatch);
                 }
             }
+            // Dispatch actions for FieldArrays
+            if (formState && fieldName.includes('.')) {
+                setFieldArrayAction(formState, fieldName, value, dispatch);
+            }
         };
-        ref.current.addEventListener('change', inputChange);
+        if (ref.current) ref.current.addEventListener('change', inputChange);
         return () => {
-            current.removeEventListener('change', inputChange);
+            if (current) current.removeEventListener('change', inputChange);
         };
-    }, [ref, dispatch, fieldArrayName, fieldName, formName, type, formState]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        ref,
+        formState,
+        formName,
+        formSectionName,
+        fieldName,
+        fieldArrayName,
+        type,
+    ]);
 };
 
 export default useInputChange;

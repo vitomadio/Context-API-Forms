@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { formStore } from '../../store';
 
-const useConfigField = (
+const useConfigField: Function = (
     formName: string | undefined,
     fieldName: string,
     formSectionName: string | undefined

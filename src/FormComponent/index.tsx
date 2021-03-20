@@ -3,8 +3,10 @@ import Form from '../lib/Form';
 import Input from '../input-samples/Input';
 import Field from '../lib/Field';
 import FormSection from '../lib/FormSection';
+import FieldArray from '../lib/FieldArray';
 import TextArea from '../input-samples/TextArea';
 import Selector from '../input-samples/Selector';
+import HobbiesComponent from '../HobbiesComponent';
 import Validation from '../utils/validations';
 
 const Required = Validation.required;
@@ -59,6 +61,7 @@ const FormComponent: React.FC<IFormComponentProps> = ({
                 <Field name="city" type="text" component={<Input />} />
                 <Field name="zip-code" type="text" component={<Input />} />
             </FormSection>
+            <FieldArray name="hobbies" component={<HobbiesComponent />} />
             <button type="submit">Print state</button>
         </Form>
     );
