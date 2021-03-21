@@ -12,7 +12,7 @@ const FieldArray: React.FC<IFieldArrayProps> = ({
     component,
     formName,
 }: IFieldArrayProps): JSX.Element => {
-    const fields = useFields(formName, name);
+    const fields: object = useFields(formName, name);
     const childComponent: React.ReactElement<any> = React.cloneElement(
         component,
         {

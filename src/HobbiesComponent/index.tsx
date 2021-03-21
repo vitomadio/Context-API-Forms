@@ -16,24 +16,25 @@ const HobbiesComponent: React.FC<any> = ({
                 Add Hobby
             </button>
         </div>
-        {fields &&
-            fields.val &&
-            fields.map((hobby: string, index: number) => (
-                <div key={index}>
-                    <button
-                        type="button"
-                        onClick={() => fields.remove(index, 1)}
-                    >
-                        Remmove Hobby
-                    </button>
-                    <Field
-                        name={`${hobby}.name`}
-                        type="text"
-                        component={<Input />}
-                        label={`Hobby #${index + 1}`}
-                    />
-                </div>
-            ))}
+        <div>
+            {fields &&
+                fields.map((hobby: string, index: number, val: any) => (
+                    <div key={hobby}>
+                        <button
+                            type="button"
+                            onClick={() => fields.remove(index)}
+                        >
+                            Remmove Hobby
+                        </button>
+                        <Field
+                            name={`${hobby}.name`}
+                            type="text"
+                            component={<Input />}
+                            label={`Hobby #${index + 1}`}
+                        />
+                    </div>
+                ))}
+        </div>
     </>
 );
 

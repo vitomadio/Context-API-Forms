@@ -15,17 +15,24 @@ const useFields: Function = (
                 formState[formName][fieldName]
                     ? formState[formName][fieldName]
                     : [],
-            map: function (this: any, func: Function) {
+            map: function (func: Function) {
                 const arr = [];
                 for (let i = 0; i < this.val.length; i++) {
                     arr.push(
-                        func(`${i}.${formName}.${fieldName}`, i, this.val)
+                        func(
+                            `${
+                                Object.keys(this.val[i])[0]
+                            }.${formName}.${fieldName}`,
+                            i,
+                            Object.values(this.val[i])[0]
+                        )
                     );
                 }
                 return arr;
             },
-            push: function (this: any) {
-                this.val.push({});
+            push: function () {
+                let index = this.val.length;
+                this.val.push({ [index]: {} });
                 return dispatch({
                     type: 'change-form',
                     payload: { [formName]: { [fieldName]: this.val } },
@@ -33,7 +40,7 @@ const useFields: Function = (
             },
             remove: function (index: number) {
                 if (formState[formName] && formState[formName][fieldName]) {
-                    this.val.splice(index, 1);
+                    this.val = [...this.val].filter((field, i) => i !== index);
                     dispatch({
                         type: 'change-form',
                         payload: {

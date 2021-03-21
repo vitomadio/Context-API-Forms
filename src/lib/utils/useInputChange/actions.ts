@@ -62,11 +62,10 @@ export const setFieldArrayAction: Function = (
             [formName]: {
                 [fieldArrayName]: formState[formName][fieldArrayName].map(
                     (field: object, i: number) => {
-                        if (
-                            !Object.keys(field).length &&
-                            i === parseInt(index)
-                        ) {
-                            return { [name]: value };
+                        if (Object.keys(field)[0] === index) {
+                            return (field = {
+                                [Object.keys(field)[0]]: { [name]: value },
+                            });
                         }
                         return field;
                     }
