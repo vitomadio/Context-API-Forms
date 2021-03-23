@@ -1,14 +1,18 @@
-# Context-Api-Forms
+# Context API Forms
 
 Is a very lightweight Higher Order Component that uses Context API to manage form state.
 
 ## Motivation
 
-Looking for a lighter alternative to redux-forms in order to manage form state with context.
+Looking for a lighter alternative to redux-forms using React Context API.
 
 ## Installation
 
-`$ npm install --save context-api-form` or `$ yarn add context-api-form`
+`$ npm install --save context-api-form` 
+
+or 
+
+`$ yarn add context-api-form`
 
 ## How to use
 
@@ -102,7 +106,7 @@ console.log(formState)
 
 Acting as an HTML form tag, the Form component is used to give a name to the form in the context state.
 
-## Properties:
+### Properties:
 
 * **name &lt;string&gt; \[Required\]**: The only property needed and required to name your form.
 * **handleSubmit &lt;string&gt; \[Required\]**: Receives a function from the parent component and injects the form values into it.
@@ -111,7 +115,7 @@ Acting as an HTML form tag, the Form component is used to give a name to the for
 
 Is a Hight Order Component which wraps input types of children components in order to establish a connection with the Context API.
 
-## Properties:
+### Properties:
 
 * **key &lt;string&gt;**: Passes a unique key to the child component.
 * **name &lt;string&gt; \[Required\]**: Used for naming your input, the same will be used to name the field in the state.
@@ -126,9 +130,59 @@ Is a Hight Order Component which wraps input types of children components in ord
 
 The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub-group. Allowing to make multiple levels of nested fields.
 
-## Properties:
+### Properties:
 
 * **name &lt;string&gt; \[Required\]**: Used for naming your nested group of fields.
+
+## FieldArray
+
+FieldArray component as its name stands creates an array of fields, this functionality is very handy to create lists of forms dynamically, pushing forms into the list.
+
+### Properties:
+
+* **name &lt;string&gt; \[Required\]**: Used for naming the array of fields.
+* **component &lt;React.Element&gt; \[Required\]**: The child component that handles the logic of the list.
+
+```jsx
+<Form name='myForm' handleSubmit={onSubmit}>
+    <FieldArray name='payment-methods' component={<PaymentMethosComponent />} />
+    <button type='submit'>Show Values</button>
+</Form>
+```
+
+FieldArray passes to its child the "_**fields**_" property which is an object that has its own methods \(**push**, **map**, and **remove**\).
+
+**NOTE:** Is very important to assign a key to every item in the list, using the first argument of the map function as the value, in order to it work correctly. See the following example for details.
+
+```jsx
+const PaymentMethodsComponent = ({ fields }) => (
+    <>
+        <div>
+            <button
+                type='button'
+                onClick={(e) => {
+                    fields.push();
+                }}
+            >
+                Add Hobby
+            </button>
+        </div>
+        {fields.map((paymethod, index) => (
+                <div key={paymethod}>
+                    <button type='button' onClick={() => fields.remove(index, 1)}>
+                        Remmove Payment Method
+                    </button>
+                    <Field
+                        name={`${paymethod}.name`}
+                        type='text'
+                        component={<Input />}
+                        label={`Hobby #${index + 1}`}
+                    />
+                </div>
+            ))}
+    </>
+);
+```
 
 ## Form validations
 
