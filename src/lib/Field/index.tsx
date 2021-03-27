@@ -55,18 +55,6 @@ const Field: React.FC<IFieldProps> = ({
     // Checks validations.
     const error: boolean = useValidate(inputRef, validations);
 
-    // const childComponent: React.ReactElement<any> = React.cloneElement(
-    //     component,
-    //     {
-    //         type,
-    //         label,
-    //         placeholder,
-    //         fieldName: name,
-    //         error,
-    //         defaultValue,
-    //     }
-    // );
-
     return (
         <div key={key} ref={inputRef}>
             {component({
