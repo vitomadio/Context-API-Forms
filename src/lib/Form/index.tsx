@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { isValidReactComponent } from './utils';
+import { isValidReactComponent } from '../utils/helperFunctions';
 import useGetValuesFromState from '../utils/useGetValuesFromState';
 
 export interface IFormProps {
@@ -19,6 +19,8 @@ const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
                         formName: name,
                         key: child.props.fieldName,
                     });
+                } else {
+                    return React.cloneElement(child, {});
                 }
             }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +29,8 @@ const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
 
     return (
         <form
-            onSubmit={() => {
+            onSubmit={(e) => {
+                e.preventDefault();
                 handleSubmit(values);
             }}
         >
