@@ -21,10 +21,12 @@ const Input: React.FC<IInputProps> = ({
         <label htmlFor={name}>
             {label && `${label}: `}
             <input
+                defaultChecked={defaultValue}
                 type={type}
                 id={name}
                 defaultValue={defaultValue}
                 {...rest}
+                onClick={(e) => console.log(e.currentTarget.checked)}
             />
             {error && <p>Required</p>}
         </label>

@@ -1,10 +1,17 @@
 import * as React from 'react';
-import Field from '../lib/Field';
+import Field from '../../lib/Field';
 import Input from '../input-samples/Input';
 
-const HobbiesComponent: React.FC<any> = ({
-    fields,
-}: any): JSX.Element | null => (
+interface IFieldsProps {
+    val: Array<any>;
+    map: any;
+    push: () => void;
+    remove: (index: number) => void;
+}
+
+const HobbiesComponent: React.FC<IFieldsProps> = (
+    fields: IFieldsProps
+): JSX.Element | null => (
     <>
         <div>
             <button
@@ -29,7 +36,7 @@ const HobbiesComponent: React.FC<any> = ({
                         <Field
                             name={`${hobby}.name`}
                             type="text"
-                            component={<Input />}
+                            component={Input}
                             label={`Hobby #${index + 1}`}
                         />
                     </div>
