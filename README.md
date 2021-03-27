@@ -55,7 +55,7 @@ import { Form, Field } from 'context-api-form';
     // Some code here...
 
 <Form name="my-form" handleSubmit={onSubmit}>
-    <Field fieldName="name" label="Name" component={<Input />} />
+    <Field fieldName="name" label="Name" component={Input} />
 <Form>
 ```
 
@@ -66,11 +66,11 @@ import { Form, Field, FieldArrayForm } from 'context-api-form';
     // Some code here...
 
 <Form formName="my-form" handleSubmit={onSubmit}>
-    <Field name="name" label="Name" component={<Input />} />
+    <Field name="name" label="Name" component={Input} />
     <FormSection name="address">
-        <Field name="steet" type="text" component={<Input />} />
-        <Field name="city" type="text" component={<Input />} />
-        <Field name="zip-code" type="text" component={<Input />} />
+        <Field name="steet" type="text" component={Input} />
+        <Field name="city" type="text" component={Input} />
+        <Field name="zip-code" type="text" component={Input} />
     </FormSection>
 <Form>
 ```
@@ -100,7 +100,7 @@ const {formState} = React.useContext(formStore);
 console.log(formState)
 ```
 
-**NOTE:** We recommend using formState as the name of the state in order to avoid confusion with other states.
+**NOTE:** We recommend using **formState** as the name of the state in order to avoid confusion with other states.
 
 ## Form
 
@@ -117,6 +117,7 @@ Is a Hight Order Component which wraps input types of children components in ord
 
 ### Properties:
 
+* **Component &lt;React Component&gt; \[Required\]:** Component passed as a prop, to which will be applied all extra properties needed to be controlled by the FormProvider.
 * **key &lt;string&gt;**: Passes a unique key to the child component.
 * **name &lt;string&gt; \[Required\]**: Used for naming your input, the same will be used to name the field in the state.
 * **type &lt;string&gt;**: Used for input type.
@@ -141,16 +142,16 @@ FieldArray component as its name stands creates an array of fields, this functio
 ### Properties:
 
 * **name &lt;string&gt; \[Required\]**: Used for naming the array of fields.
-* **component &lt;React.Element&gt; \[Required\]**: The child component that handles the logic of the list.
+* **component &lt;React Component&gt; \[Required\]**: The component which contains the logic needed to create a list of nested fields.
 
 ```jsx
 <Form name='myForm' handleSubmit={onSubmit}>
-    <FieldArray name='payment-methods' component={<PaymentMethosComponent />} />
+    <FieldArray name='payment-methods' component={PaymentMethodsComponent} />
     <button type='submit'>Show Values</button>
 </Form>
 ```
 
-FieldArray passes to its child the "_**fields**_" property which is an object that has its own methods \(**push**, **map**, and **remove**\).
+FieldArray passes to PaymentMethodsComponent the "_**fields**_" property which is an object that contains its own methods \(**push**, **map**, and **remove**\).
 
 **NOTE:** Is very important to assign a key to every item in the list, using the first argument of the map function as the value, in order to it work correctly. See the following example for details.
 
@@ -175,7 +176,7 @@ const PaymentMethodsComponent = ({ fields }) => (
                     <Field
                         name={`${paymethod}.name`}
                         type='text'
-                        component={<Input />}
+                        component={Input}
                         label={`Hobby #${index + 1}`}
                     />
                 </div>
@@ -195,10 +196,14 @@ const Required = (value) => {
 return !value || value === "" ? true : false;
 }
 ...
-<Field fieldName="name" label="Name"typevalidations={[Required]} label="Name">
-    //Check step 2 on how to prepare child component section for more details.
-    <Input />
-</Field>
+<Field 
+    fieldName="name" 
+    label="Name"
+    type="text"
+    validations={[Required]} 
+    label="Name"
+    component={Input}
+/>
 ```
 
 ## Initial Values
