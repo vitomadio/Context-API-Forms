@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { formStore } from 'lib/store';
-import FormComponent from './FormComponent';
+import FormComponent from './examples/FormComponent';
 import useSetInitialValues from 'lib/utils/useSetInitialValues';
-
-import './styles.css';
 
 const App: React.FC = (): JSX.Element => {
     const { formState }: any = useContext<object>(formStore);

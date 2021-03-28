@@ -3,6 +3,15 @@ import useConfigField from '../utils/useConfigField';
 import useInputChange from '../utils/useInputChange';
 import useValidate from '../utils/useValidate';
 
+interface IComponentProps {
+    type: string | undefined;
+    label: string | undefined;
+    placeholder: string | undefined;
+    name: string;
+    error: boolean | undefined;
+    defaultValue: any | undefined;
+}
+
 export interface IFieldProps {
     key?: string;
     type?: string;
@@ -13,7 +22,7 @@ export interface IFieldProps {
     validations?: Array<Function>;
     label?: string;
     placeholder?: string;
-    component: React.ReactElement<any>;
+    component(props: IComponentProps): React.ReactNode;
 }
 
 const Field: React.FC<IFieldProps> = ({
@@ -46,21 +55,16 @@ const Field: React.FC<IFieldProps> = ({
     // Checks validations.
     const error: boolean = useValidate(inputRef, validations);
 
-    const childComponent: React.ReactElement<any> = React.cloneElement(
-        component,
-        {
-            type,
-            label,
-            placeholder,
-            fieldName: name,
-            error,
-            defaultValue,
-        }
-    );
-
     return (
         <div key={key} ref={inputRef}>
-            {childComponent}
+            {component({
+                type,
+                label,
+                placeholder,
+                name,
+                error,
+                defaultValue,
+            })}
         </div>
     );
 };
