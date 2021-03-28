@@ -10,11 +10,7 @@ export const setValue: Function = (
         value = parseInt(value);
     }
     if (type === 'checkbox') {
-<<<<<<< HEAD
-        value = target.checked;
-=======
         value = target.value;
->>>>>>> master
         if (value !== true) {
             value = false;
         }
