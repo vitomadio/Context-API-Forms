@@ -1,38 +1,32 @@
 import { useContext } from 'react';
 import { formStore } from '../../store';
 
+interface IFieldsProps {
+    val: Array<any>;
+    map: any;
+    push: () => void;
+    remove: (index: number) => void;
+}
+
 const useFields: Function = (
     formName: string | undefined,
     fieldName: string
-): object | null => {
+): IFieldsProps | null => {
     const { formState, dispatch } = useContext<any>(formStore);
-    let fields = null;
-    if (formName && dispatch && formState) {
+    let fields: IFieldsProps | null = null;
+    if (formState && formName) {
         fields = {
             val:
-                formState &&
-                formState[formName] &&
-                formState[formName][fieldName]
+                formState[formName] && formState[formName][fieldName]
                     ? formState[formName][fieldName]
                     : [],
             map: function (func: Function) {
-                const arr = [];
-                for (let i = 0; i < this.val.length; i++) {
-                    arr.push(
-                        func(
-                            `${
-                                Object.keys(this.val[i])[0]
-                            }.${formName}.${fieldName}`,
-                            i,
-                            Object.values(this.val[i])[0]
-                        )
-                    );
-                }
-                return arr;
+                return [...this.val].map((value: any, i: any) =>
+                    func(`${i}.${formName}.${fieldName}`, i)
+                );
             },
             push: function () {
-                let index = this.val.length;
-                this.val.push({ [index]: {} });
+                this.val.push({});
                 return dispatch({
                     type: 'change-form',
                     payload: { [formName]: { [fieldName]: this.val } },
@@ -40,7 +34,7 @@ const useFields: Function = (
             },
             remove: function (index: number) {
                 if (formState[formName] && formState[formName][fieldName]) {
-                    this.val = [...this.val].filter((field, i) => i !== index);
+                    this.val = this.val.filter((field, i) => i !== index);
                     dispatch({
                         type: 'change-form',
                         payload: {

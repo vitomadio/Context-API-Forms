@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import useConfigField from '../utils/useConfigField';
-import useInputChange from '../utils/useInputChange';
-import useValidate from '../utils/useValidate';
+import useConfigField from '../hooks/useConfigField';
+import useInputChange from '../hooks/useInputChange';
+import useValidate from '../hooks/useValidate';
 
 interface IComponentProps {
     type: string | undefined;

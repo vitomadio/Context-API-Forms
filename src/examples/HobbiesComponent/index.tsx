@@ -17,6 +17,7 @@ const HobbiesComponent: React.FC<IFieldsProps> = (
             <button
                 type="button"
                 onClick={(e) => {
+                    e.preventDefault();
                     fields.push();
                 }}
             >
@@ -26,7 +27,7 @@ const HobbiesComponent: React.FC<IFieldsProps> = (
         <div>
             {fields &&
                 fields.map((hobby: string, index: number, val: any) => (
-                    <div key={hobby}>
+                    <div key={index}>
                         <button
                             type="button"
                             onClick={() => fields.remove(index)}
@@ -37,7 +38,7 @@ const HobbiesComponent: React.FC<IFieldsProps> = (
                             name={`${hobby}.name`}
                             type="text"
                             component={Input}
-                            label={`Hobby #${index + 1}`}
+                            label={`Name #${index + 1}`}
                         />
                     </div>
                 ))}

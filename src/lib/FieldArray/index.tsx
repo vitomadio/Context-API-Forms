@@ -1,5 +1,5 @@
 import React from 'react';
-import useFields from '../utils/useFields';
+import useFields from '../hooks/useFields';
 
 interface IFieldsProps {
     val: Array<any>;
