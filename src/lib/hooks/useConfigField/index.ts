@@ -13,6 +13,10 @@ const useConfigField: Function = (
         }
         return formState[formName][fieldName];
     }
+    if (fieldName.includes('.') && fieldName.split('.').length === 5) {
+        const [index, , formName, fieldArrayName, name] = fieldName.split('.');
+        return formState[formName][fieldArrayName][index][name];
+    }
     return null;
 };
 

@@ -55,7 +55,7 @@ export const setFieldArrayAction: Function = (
     value: any,
     dispatch: Dispatch<IAction>
 ): void => {
-    const [index, formName, fieldArrayName, name] = fieldName.split('.');
+    const [index, , formName, fieldArrayName, name] = fieldName.split('.');
     dispatch({
         type: 'change-form',
         payload: {

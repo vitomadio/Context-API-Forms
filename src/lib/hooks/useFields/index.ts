@@ -1,5 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { formStore } from '../../store';
+
+const MIN_VAL = 100000;
+const MAX_VAL = 999999;
 
 interface IFieldsProps {
     val: Array<any>;
@@ -13,6 +16,29 @@ const useFields: Function = (
     fieldName: string
 ): IFieldsProps | null => {
     const { formState, dispatch } = useContext<any>(formStore);
+    const [state, setState] = useState<Array<any>>([]);
+    useEffect(() => {
+        if (
+            formState &&
+            formName &&
+            formState[formName] &&
+            formState[formName][fieldName]
+        ) {
+            setState(
+                formState[formName][fieldName].map((field: any, i: number) => {
+                    if (!field) return;
+                    if (state[i]?.id)
+                        return (state[i] = { ...state[i], ...field });
+                    const id =
+                        Math.floor(Math.random() * (MAX_VAL - MIN_VAL)) +
+                        MIN_VAL;
+                    return (state[i] = { id });
+                })
+            );
+        }
+    }, [formState]);
+    console.log(state);
+
     let fields: IFieldsProps | null = null;
     if (formState && formName) {
         fields = {
@@ -21,9 +47,16 @@ const useFields: Function = (
                     ? formState[formName][fieldName]
                     : [],
             map: function (func: Function) {
-                return [...this.val].map((value: any, i: any) =>
-                    func(`${i}.${formName}.${fieldName}`, i)
-                );
+                return state.map((value: any, i: any) => {
+                    const id =
+                        Math.floor(Math.random() * (MAX_VAL - MIN_VAL)) +
+                        MIN_VAL;
+                    return func(
+                        `${i}.${value.id}.${formName}.${fieldName}`,
+                        i,
+                        this
+                    );
+                });
             },
             push: function () {
                 this.val.push({});
@@ -35,6 +68,7 @@ const useFields: Function = (
             remove: function (index: number) {
                 if (formState[formName] && formState[formName][fieldName]) {
                     this.val = this.val.filter((field, i) => i !== index);
+                    setState(state.filter((item, i) => i !== index));
                     dispatch({
                         type: 'change-form',
                         payload: {
