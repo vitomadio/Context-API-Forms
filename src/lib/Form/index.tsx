@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { isValidReactComponent } from '../utils/helperFunctions';
-import useGetValuesFromState from '../utils/useGetValuesFromState';
+import { isValidReactComponent } from './helperFunctions';
+import useGetValuesFromState from '../hooks/useGetValuesFromState';
 
 export interface IFormProps {
     name: string;

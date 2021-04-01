@@ -55,20 +55,15 @@ export const setFieldArrayAction: Function = (
     value: any,
     dispatch: Dispatch<IAction>
 ): void => {
-    const [index, formName, fieldArrayName, name] = fieldName.split('.');
+    const [index, , formName, fieldArrayName, name] = fieldName.split('.');
     dispatch({
         type: 'change-form',
         payload: {
             [formName]: {
-                [fieldArrayName]: formState[formName][fieldArrayName].map(
-                    (field: object, i: number) => {
-                        if (Object.keys(field)[0] === index) {
-                            return (field = {
-                                [Object.keys(field)[0]]: { [name]: value },
-                            });
-                        }
-                        return field;
-                    }
+                [fieldArrayName]: formState[formName][
+                    fieldArrayName
+                ].map((field: any, i: number) =>
+                    i === parseInt(index) ? { ...field, [name]: value } : field
                 ),
             },
         },
