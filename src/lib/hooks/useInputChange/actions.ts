@@ -2,10 +2,10 @@ import { Dispatch } from 'react';
 
 interface IAction {
     type: string;
-    payload: object;
+    payload: any;
 }
 
-export const setFormAction: Function = (
+export const setFormAction = (
     formName: string,
     fieldName: string,
     value: any,
@@ -17,7 +17,7 @@ export const setFormAction: Function = (
     });
 };
 
-export const setFormSectionAction: Function = (
+export const setFormSectionAction = (
     formState: any,
     formName: string,
     formSectionName: string,
@@ -49,7 +49,7 @@ export const setFormSectionAction: Function = (
     }
 };
 
-export const setFieldArrayAction: Function = (
+export const setFieldArrayAction = (
     formState: any,
     fieldName: string,
     value: any,

@@ -11,15 +11,9 @@ import Validation from '../utils/validations';
 
 const Required = Validation.required;
 
-interface IFormComponentProps {
-    onSubmit: Function;
-}
-
-const FormComponent: React.FC<IFormComponentProps> = ({
-    onSubmit,
-}: IFormComponentProps): JSX.Element => {
+const FormComponent: React.FC = (): JSX.Element => {
     return (
-        <Form name="my-form" handleSubmit={onSubmit}>
+        <Form name="my-form">
             <Field
                 name="name"
                 label="Name"

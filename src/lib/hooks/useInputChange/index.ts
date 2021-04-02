@@ -7,7 +7,7 @@ import {
 import { setValue } from './utils';
 import { formStore } from '../../store';
 
-const useInputChange: Function = (
+const useInputChange = (
     ref: { current: HTMLElement | null },
     type: string | undefined,
     formName: string | undefined,

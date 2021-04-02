@@ -6,11 +6,11 @@ interface IFormProviderProps {
 
 export interface IAction {
     type: string;
-    payload: object;
+    payload: { (k: string): string[] };
 }
 
 const initialState: any = {};
-const formStore: React.Context<any> = createContext<object>(initialState);
+const formStore: React.Context<any> = createContext<any>(initialState);
 const { Provider } = formStore;
 
 const FormProvider = ({ children }: IFormProviderProps): JSX.Element => {

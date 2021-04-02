@@ -5,7 +5,7 @@ import useGetValuesFromState from '../hooks/useGetValuesFromState';
 export interface IFormProps {
     name: string;
     children: React.ReactElement<any>[];
-    handleSubmit: Function;
+    handleSubmit?: ((values: any) => void) | undefined;
 }
 
 const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
@@ -31,7 +31,9 @@ const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit(values);
+                if (handleSubmit) {
+                    handleSubmit(values);
+                }
             }}
         >
             {name && childrenWithProps}

@@ -4,7 +4,7 @@ import FormComponent from './examples/FormComponent';
 import useSetInitialValues from 'lib/hooks/useSetInitialValues';
 
 const App: React.FC = (): JSX.Element => {
-    const { formState }: any = useContext<object>(formStore);
+    const { formState }: any = useContext<any>(formStore);
 
     useSetInitialValues({
         'my-form': {
@@ -20,7 +20,7 @@ const App: React.FC = (): JSX.Element => {
 
     return (
         <div className="App">
-            <FormComponent onSubmit={(values: any) => console.log(values)} />
+            <FormComponent />
             {JSON.stringify(formState, null, 4)};
         </div>
     );

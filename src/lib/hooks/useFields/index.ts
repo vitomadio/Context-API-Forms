@@ -11,7 +11,7 @@ interface IFieldsProps {
     remove: (index: number) => void;
 }
 
-const useFields: Function = (
+const useFields = (
     formName: string | undefined,
     fieldName: string
 ): IFieldsProps | null => {
@@ -26,7 +26,7 @@ const useFields: Function = (
         ) {
             setState(
                 formState[formName][fieldName].map((field: any, i: number) => {
-                    if (!field) return;
+                    if (!field) return null;
                     if (state[i]?.id)
                         return (state[i] = { ...state[i], ...field });
                     const id =
@@ -37,16 +37,17 @@ const useFields: Function = (
             );
         }
     }, [formState]);
-    console.log(state);
 
-    let fields: IFieldsProps | null = null;
+    let fields = null;
     if (formState && formName) {
         fields = {
             val:
                 formState[formName] && formState[formName][fieldName]
                     ? formState[formName][fieldName]
                     : [],
-            map: function (func: Function) {
+            map: function (
+                func: (a: string, i: number, val: any) => Array<any>
+            ) {
                 return state.map((value: any, i: any) => {
                     const id =
                         Math.floor(Math.random() * (MAX_VAL - MIN_VAL)) +
@@ -67,7 +68,9 @@ const useFields: Function = (
             },
             remove: function (index: number) {
                 if (formState[formName] && formState[formName][fieldName]) {
-                    this.val = this.val.filter((field, i) => i !== index);
+                    this.val = this.val.filter(
+                        (field: any, i: number) => i !== index
+                    );
                     setState(state.filter((item, i) => i !== index));
                     dispatch({
                         type: 'change-form',

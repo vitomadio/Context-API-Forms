@@ -9,9 +9,7 @@ interface IFieldsProps {
     remove: (index: number) => void;
 }
 
-const HobbiesComponent: React.FC<IFieldsProps> = (
-    fields: IFieldsProps
-): JSX.Element | null => (
+const HobbiesComponent = (fields: IFieldsProps): React.ReactNode | null => (
     <>
         <div>
             <button

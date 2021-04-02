@@ -19,8 +19,8 @@ const FieldArray: React.FC<IFieldArrayProps> = ({
     component,
     formName,
 }: IFieldArrayProps): JSX.Element => {
-    const fields: IFieldsProps = useFields(formName, name);
-    return <div>{component(fields)}</div>;
+    const fields: IFieldsProps | null = useFields(formName, name);
+    return <div>{fields && component(fields)}</div>;
 };
 
 export default FieldArray;

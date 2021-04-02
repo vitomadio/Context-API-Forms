@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import FieldArray from '../index';
-import HobbiesComponent from '../../../HobbiesComponent';
+import HobbiesComponent from '../../../examples/HobbiesComponent';
 
 describe('Form', () => {
     test('Test Form render with children', () => {
@@ -9,7 +9,7 @@ describe('Form', () => {
             <FieldArray
                 formName="myForm"
                 name="hobbies"
-                component={<HobbiesComponent />}
+                component={HobbiesComponent}
             />
         );
         expect(form).toMatchSnapshot();
