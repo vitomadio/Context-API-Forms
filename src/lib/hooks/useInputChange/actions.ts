@@ -60,10 +60,16 @@ export const setFieldArrayAction = (
         type: 'change-form',
         payload: {
             [formName]: {
-                [fieldArrayName]: formState[formName][
-                    fieldArrayName
-                ].map((field: any, i: number) =>
-                    i === parseInt(index) ? { ...field, [name]: value } : field
+                [fieldArrayName]: formState[formName][fieldArrayName].map(
+                    (field: any, i: number) => {
+                        if (i === parseInt(index)) {
+                            if (name) {
+                                return { ...field, [name]: value };
+                            }
+                            return value;
+                        }
+                        return field;
+                    }
                 ),
             },
         },
