@@ -36,6 +36,7 @@ const useFields = (
                 })
             );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formState]);
 
     let fields = null;
@@ -49,9 +50,6 @@ const useFields = (
                 func: (a: string, i: number, val: any) => Array<any>
             ) {
                 return state.map((value: any, i: any) => {
-                    const id =
-                        Math.floor(Math.random() * (MAX_VAL - MIN_VAL)) +
-                        MIN_VAL;
                     return func(
                         `${i}.${value.id}.${formName}.${fieldName}`,
                         i,

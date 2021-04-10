@@ -49,12 +49,12 @@
         "@babel/preset-typescript": "7.13.0",
         "@testing-library/jest-dom": "5.11.9",
         "@testing-library/react": "11.2.3",
-        "@typescript-eslint/eslint-plugin": "^4.20.0",
-        "@typescript-eslint/parser": "^4.20.0",
+        "@typescript-eslint/eslint-plugin": "^4.21.0",
+        "@typescript-eslint/parser": "^4.21.0",
         "eslint": "6.6.0",
-        "eslint-plugin-react-hooks": "^4.2.0",
+        "eslint-plugin-react-hooks": "4.2.0",
         "prettier": "2.2.1",
-        "typescript": "^3.8.3"
+        "typescript": "3.8.3"
     },
     "scripts": {
         "start": "react-scripts start",
