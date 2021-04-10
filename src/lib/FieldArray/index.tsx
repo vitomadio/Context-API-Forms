@@ -1,5 +1,5 @@
 import React from 'react';
-import useFields from '../hooks/useFields';
+import useFields from '../utils/useFields';
 
 interface IFieldsProps {
     val: Array<any>;
@@ -19,8 +19,13 @@ const FieldArray: React.FC<IFieldArrayProps> = ({
     component,
     formName,
 }: IFieldArrayProps): JSX.Element => {
+<<<<<<< Updated upstream
     const fields: IFieldsProps | null = useFields(formName, name);
     return <div>{fields && component(fields)}</div>;
+=======
+    const fields: IFieldsProps = useFields(formName, name);
+    return <div>{component(fields)}</div>;
+>>>>>>> Stashed changes
 };
 
 export default FieldArray;

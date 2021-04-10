@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Field from '../index';
 import fieldProps from '../__mocks__/fieldProps.json';
-import Input from '../../../examples/input-samples/Input';
+import Input from 'input-samples/Input';
 
 describe('Field', () => {
     test('Test Field render w/o props', () => {
-        const form = render(<Field component={Input} />);
+        const form = render(<Field component={<Input />} />);
         expect(form).toMatchSnapshot();
     });
 
@@ -18,7 +18,7 @@ describe('Field', () => {
                 formName={fieldProps.formName}
                 fieldName={fieldProps.fieldName}
                 label={fieldProps.label}
-                component={Input}
+                component={<Input />}
             />
         );
         expect(screen.getByLabelText(/name/i)).toBeInTheDocument();

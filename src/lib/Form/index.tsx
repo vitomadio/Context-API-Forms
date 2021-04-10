@@ -1,11 +1,16 @@
 import React, { useMemo } from 'react';
+<<<<<<< Updated upstream
 import { isValidReactComponent } from '../utils';
 import useGetValuesFromState from '../hooks/useGetValuesFromState';
+=======
+import { isValidReactComponent } from '../utils/helperFunctions';
+import useGetValuesFromState from '../utils/useGetValuesFromState';
+>>>>>>> Stashed changes
 
 export interface IFormProps {
     name: string;
     children: React.ReactElement<any>[];
-    handleSubmit?: ((values: any) => void) | undefined;
+    handleSubmit: Function;
 }
 
 const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
@@ -31,9 +36,7 @@ const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                if (handleSubmit) {
-                    handleSubmit(values);
-                }
+                handleSubmit(values);
             }}
         >
             {name && childrenWithProps}

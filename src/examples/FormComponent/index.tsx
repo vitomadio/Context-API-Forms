@@ -11,9 +11,21 @@ import Validation from '../utils/validations';
 
 const Required = Validation.required;
 
+<<<<<<< Updated upstream
 const FormComponent: React.FC = (): JSX.Element => {
     return (
         <Form name="my-form">
+=======
+interface IFormComponentProps {
+    onSubmit: Function;
+}
+
+const FormComponent: React.FC<IFormComponentProps> = ({
+    onSubmit,
+}: IFormComponentProps): JSX.Element => {
+    return (
+        <Form name="my-form" handleSubmit={onSubmit}>
+>>>>>>> Stashed changes
             <Field
                 name="name"
                 label="Name"

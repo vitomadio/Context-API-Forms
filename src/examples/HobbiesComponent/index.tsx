@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Field from '../../lib/Field';
 import Input from '../input-samples/Input';
 
@@ -11,13 +11,12 @@ interface IFieldsProps {
 
 const HobbiesComponent: React.FC<IFieldsProps> = (
     fields: IFieldsProps
-): JSX.Element => (
+): JSX.Element | null => (
     <>
         <div>
             <button
                 type="button"
                 onClick={(e) => {
-                    e.preventDefault();
                     fields.push();
                 }}
             >
@@ -26,6 +25,7 @@ const HobbiesComponent: React.FC<IFieldsProps> = (
         </div>
         <div>
             {fields &&
+<<<<<<< Updated upstream
                 fields.map(
                     (hobby: string, index: number, fields: IFieldsProps) => (
                         <div key={hobby}>
@@ -44,6 +44,24 @@ const HobbiesComponent: React.FC<IFieldsProps> = (
                         </div>
                     )
                 )}
+=======
+                fields.map((hobby: string, index: number, val: any) => (
+                    <div key={hobby}>
+                        <button
+                            type="button"
+                            onClick={() => fields.remove(index)}
+                        >
+                            Remmove Hobby
+                        </button>
+                        <Field
+                            name={`${hobby}.name`}
+                            type="text"
+                            component={Input}
+                            label={`Hobby #${index + 1}`}
+                        />
+                    </div>
+                ))}
+>>>>>>> Stashed changes
         </div>
     </>
 );

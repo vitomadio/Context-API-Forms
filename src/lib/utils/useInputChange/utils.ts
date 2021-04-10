@@ -1,11 +1,7 @@
 export const setValue: Function = (
     target: HTMLInputElement,
     value: any,
-<<<<<<< Updated upstream
-    type: string | undefined
-=======
     type: string
->>>>>>> Stashed changes
 ): boolean => {
     if (type === 'number') {
         if (!value || value === 0) {
@@ -14,7 +10,7 @@ export const setValue: Function = (
         value = parseInt(value);
     }
     if (type === 'checkbox') {
-        value = target.value;
+        value = target.checked;
         if (value !== true) {
             value = false;
         }

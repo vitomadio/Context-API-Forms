@@ -26,6 +26,7 @@ const Input: React.FC<IInputProps> = ({
                 id={name}
                 defaultValue={defaultValue}
                 {...rest}
+                onClick={(e) => console.log(e.currentTarget.checked)}
             />
             {error && <p>Required</p>}
         </label>

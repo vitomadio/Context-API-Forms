@@ -1,14 +1,10 @@
 import { useContext, useMemo } from 'react';
 import { formStore } from '../../store';
 
-<<<<<<< Updated upstream
-const useGetFieldsArray = (name: string, formName: string): Array<any> => {
-=======
 const useGetFieldsArray: Function = (
     name: string,
     formName: string
 ): Array<object> => {
->>>>>>> Stashed changes
     const { formState, dispatch } = useContext<any>(formStore);
     const fields = useMemo(() => {
         if (formState && formName && name) {

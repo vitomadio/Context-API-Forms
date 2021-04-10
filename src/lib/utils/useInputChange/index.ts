@@ -26,7 +26,7 @@ const useInputChange: Function = (
             // Dispatch actions for Fields and FormSections
             if (formName) {
                 if (formSectionName) {
-                    return setFormSectionAction(
+                    setFormSectionAction(
                         formState,
                         formName,
                         formSectionName,
@@ -34,8 +34,9 @@ const useInputChange: Function = (
                         value,
                         dispatch
                     );
+                } else {
+                    setFormAction(formName, fieldName, value, dispatch);
                 }
-                return setFormAction(formName, fieldName, value, dispatch);
             }
             // Dispatch actions for FieldArrays
             if (formState && fieldName.includes('.')) {

@@ -1,6 +1,6 @@
 {
     "name": "context-api-forms",
-    "version": "3.0.4",
+    "version": "2.2.0",
     "description": "A lightweight Higher Order Component which uses context-api to manage form state",
     "main": "dist/index.js",
     "private": false,
@@ -12,9 +12,7 @@
     ],
     "babel": {
         "presets": [
-            "@babel/preset-typescript",
-            "@babel/preset-react",
-            "@babel/preset-env"
+            "@babel/preset-typescript"
         ],
         "plugins": [
             "@babel/plugin-transform-typescript"
@@ -33,8 +31,8 @@
         "@types/node": "14.14.31",
         "@types/react": "17.0.2",
         "@types/react-dom": "17.0.1",
-        "react": "^17.0.0",
-        "react-dom": "^17.0.0",
+        "react": "17.0.0",
+        "react-dom": "17.0.0",
         "react-scripts": "3.4.3"
     },
     "peerDependencies": {
@@ -47,25 +45,19 @@
     "devDependencies": {
         "@babel/cli": "7.12.13",
         "@babel/core": "7.12.13",
-        "@babel/preset-env": "7.13.12",
         "@babel/preset-react": "7.12.13",
         "@babel/preset-typescript": "7.13.0",
         "@testing-library/jest-dom": "5.11.9",
         "@testing-library/react": "11.2.3",
-        "@typescript-eslint/eslint-plugin": "^4.4.0",
-        "@typescript-eslint/parser": "^4.4.0",
-        "eslint": "6.6.0",
-        "eslint-plugin-react-hooks": "^4.2.0",
         "prettier": "2.2.1",
         "typescript": "^3.8.3"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "tsc --build",
-        "test": "npm run lint && react-scripts test --env=jsdom",
+        "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
-        "publish:npm": "rm -rf dist && mkdir dist && babel src/lib --ignore '**/*.test.js' --extensions '.ts,.tsx' --out-dir dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__,__mocks__",
-        "lint": "eslint . --ext .ts --ext .tsx"
+        "publish:npm": "rm -rf dist && mkdir dist && babel src/lib --ignore '**/*.test.js' --extensions '.ts,.tsx' --out-dir dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__,__mocks__"
     },
     "browserslist": [
         ">0.2%",
