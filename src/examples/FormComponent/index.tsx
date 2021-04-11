@@ -9,6 +9,8 @@ import Selector from '../input-samples/Selector';
 import HobbiesComponent from '../HobbiesComponent';
 import Validation from '../utils/validations';
 
+import './styles.css';
+
 const Required = Validation.required;
 
 const FormComponent: React.FC = (): JSX.Element => {
@@ -45,12 +47,16 @@ const FormComponent: React.FC = (): JSX.Element => {
                 component={Input}
             />
             <Field name="sex" type="text" label="Sex" component={Selector} />
-            <FormSection name="address" label="Address">
-                <Field name="street" type="text" component={Input} />
-                <Field name="city" type="text" component={Input} />
-                <Field name="zip-code" type="text" component={Input} />
-            </FormSection>
-            <FieldArray name="hobbies" component={HobbiesComponent} />
+            <div className="address">
+                <FormSection name="address" label="Address">
+                    <Field name="street" type="text" component={Input} />
+                    <Field name="city" type="text" component={Input} />
+                    <Field name="zip-code" type="text" component={Input} />
+                </FormSection>
+            </div>
+            <div className="hobbies">
+                <FieldArray name="hobbies" component={HobbiesComponent} />
+            </div>
             <button type="submit">Print state</button>
         </Form>
     );

@@ -1,42 +1,54 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { isValidReactComponent } from './helperFunctions';
 import useGetValuesFromState from '../hooks/useGetValuesFromState';
 
 export interface IFormProps {
     name: string;
     children: React.ReactElement<any>[];
-    handleSubmit?: ((values: any) => void) | undefined;
+    handleSubmit?: (values: any) => void | undefined;
 }
 
-const Form = ({ name, children, handleSubmit }: IFormProps): JSX.Element => {
+const Form = ({
+    name,
+    children,
+    handleSubmit = () => {},
+}: IFormProps): JSX.Element => {
     const values = useGetValuesFromState(name);
 
-    const childrenWithProps: React.ReactElement<any>[] = useMemo(
-        () =>
-            React.Children.map(children, (child) => {
+    function recursiveCloneChildren(children: React.ReactElement[]) {
+        return React.Children.map(children, (child: React.ReactElement) => {
+            const childProps = {};
+            if (!React.isValidElement(child)) {
+                return child;
+            }
+            if (child.props) {
+                // @ts-ignore
+                childProps.children = recursiveCloneChildren(
+                    // @ts-ignore
+                    child.props.children
+                );
                 if (isValidReactComponent(child)) {
                     return React.cloneElement(child, {
+                        ...childProps,
+                        // @ts-ignore
                         formName: name,
-                        key: child.props.fieldName,
                     });
-                } else {
-                    return React.cloneElement(child, {});
                 }
-            }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [name]
-    );
+                // @ts-ignore
+                return React.cloneElement(child, childProps);
+            }
+            return child;
+        });
+    }
 
     return (
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                if (handleSubmit) {
-                    handleSubmit(values);
-                }
+                handleSubmit(values);
             }}
         >
-            {name && childrenWithProps}
+            {name && recursiveCloneChildren(children)}
         </form>
     );
 };
