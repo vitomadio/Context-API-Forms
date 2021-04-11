@@ -5,6 +5,7 @@
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "rules": {
         "no-console": 2,
-        "react-hooks/exhaustive-deps": "warn"
+        "react-hooks/exhaustive-deps": "warn",
+        "@typescript-eslint/no-use-before-define": "off"
     }
 }

@@ -38,7 +38,7 @@ const useInputChange = (
                 return setFormAction(formName, fieldName, value, dispatch);
             }
             // Dispatch actions for FieldArrays
-            if (formState && fieldName.includes('.')) {
+            if (formState && fieldName?.includes('.')) {
                 setFieldArrayAction(formState, fieldName, value, dispatch);
             }
         };

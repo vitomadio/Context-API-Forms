@@ -48,7 +48,8 @@ const FormComponent: React.FC = (): JSX.Element => {
             />
             <Field name="sex" type="text" label="Sex" component={Selector} />
             <div className="address">
-                <FormSection name="address" label="Address">
+                <FormSection name="address">
+                    <span>Address:</span>
                     <Field name="street" type="text" component={Input} />
                     <Field name="city" type="text" component={Input} />
                     <Field name="zip-code" type="text" component={Input} />
