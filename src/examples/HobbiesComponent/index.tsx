@@ -34,7 +34,7 @@ const HobbiesComponent = (fields: IFieldsProps): React.ReactNode | null => (
                                 Remmove Hobby
                             </button>
                             <Field
-                                name={`${hobby}.name`}
+                                name={hobby}
                                 type="text"
                                 component={Input}
                                 label={`Name #${index + 1}`}
