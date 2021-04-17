@@ -6,6 +6,8 @@
     "rules": {
         "no-console": 2,
         "react-hooks/exhaustive-deps": "warn",
-        "@typescript-eslint/no-use-before-define": "off"
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-empty-function": "warn"
     }
 }
