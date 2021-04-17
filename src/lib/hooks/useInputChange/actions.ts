@@ -79,7 +79,7 @@ export const setFieldArrayAction = (
                 [fieldArrayName]: formState[formName][
                     fieldArrayName
                 ].map((field: any, i: number) =>
-                    i === parseInt(index) ? value : field
+                    i === parseInt(index) ? value || {} : field
                 ),
             },
         },

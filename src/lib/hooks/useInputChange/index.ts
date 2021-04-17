@@ -21,7 +21,7 @@ const useInputChange = (
         const inputChange = (event: Event): any => {
             const target = event.target as HTMLInputElement;
             // Config value
-            let value: any = target.value || null;
+            let value: any = target.value;
             value = setValue(target, value, type);
             // Dispatch actions for Fields and FormSections
             if (formName) {

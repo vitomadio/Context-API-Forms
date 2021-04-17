@@ -1,5 +1,5 @@
 import React from 'react';
-import { isValidReactComponent } from './helperFunctions';
+import { isValidReactComponent } from '../utils';
 import useGetValuesFromState from '../hooks/useGetValuesFromState';
 
 export interface IFormProps {
@@ -32,6 +32,8 @@ const Form = ({
                         ...childProps,
                         // @ts-ignore
                         formName: name,
+                        // @ts-ignore
+                        key: child.props.name,
                     });
                 }
                 // @ts-ignore

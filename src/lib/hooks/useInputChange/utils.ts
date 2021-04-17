@@ -10,7 +10,7 @@ export const setValue = (
         value = parseInt(value);
     }
     if (type === 'checkbox') {
-        value = target.value;
+        value = target.checked;
         if (value !== true) {
             value = false;
         }

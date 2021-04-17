@@ -4,11 +4,13 @@ import FormComponent from './examples/FormComponent';
 import useSetInitialValues from 'lib/hooks/useSetInitialValues';
 
 function createDomElement(obj: any, i: number): React.ReactNode {
-    return Object.entries(obj).map(([key, val]) => {
+    return Object.entries(obj).map(([key, val], i) => {
         if (Object.prototype.toString.call(val) === '[object Object]') {
             return React.createElement(
                 'div',
-                i >= 0 ? { style: { marginLeft: 48 } } : null,
+                i >= 0
+                    ? { style: { marginLeft: 48 }, key: `${key}-${i}` }
+                    : { key: `${key}-${i}` },
                 `{"${key}": `,
                 createDomElement(val, 0),
                 '}'
@@ -16,7 +18,7 @@ function createDomElement(obj: any, i: number): React.ReactNode {
         }
         return React.createElement(
             'div',
-            { style: { marginLeft: 48 } },
+            { style: { marginLeft: 48 }, key: `${key}-${i}` },
             `{"${key}": ${JSON.stringify(val)}},`
         );
     });

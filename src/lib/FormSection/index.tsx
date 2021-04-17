@@ -1,5 +1,5 @@
 import React from 'react';
-import { isValidReactComponent } from 'lib/Form/helperFunctions';
+import { isValidReactComponent } from '../utils';
 
 export interface IFormSectionProps {
     formName?: string;
@@ -19,14 +19,13 @@ const FormSection = ({
                 return React.cloneElement(child, {
                     formSectionName: name,
                     formName,
-                    key: child.props.fieldName,
                 });
             }
             return React.cloneElement(child);
         }
     );
 
-    return <div id={name}>{childrenWithProps}</div>;
+    return <>{childrenWithProps}</>;
 };
 
 export default FormSection;

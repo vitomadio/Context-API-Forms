@@ -1,6 +1,6 @@
 {
     "name": "context-api-forms",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "description": "A lightweight Higher Order Component which uses context-api to manage form state",
     "main": "dist/index.js",
     "private": false,
@@ -32,8 +32,6 @@
         "@types/node": "14.14.31",
         "@types/react": "17.0.2",
         "@types/react-dom": "17.0.1",
-        "react": "^17.0.0",
-        "react-dom": "^17.0.0",
         "react-scripts": "3.4.3"
     },
     "peerDependencies": {
@@ -62,7 +60,7 @@
         "build": "tsc --build",
         "test": "npm run lint && react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
-        "publish:npm": "rm -rf dist && mkdir dist && babel src/lib --ignore '**/*.test.js' --extensions '.ts,.tsx' --out-dir dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__,__mocks__",
+        "prepublish": "rm -rf dist && mkdir dist && npm uninstall react react-dom &&  babel src/lib --ignore '**/*.test.js' --extensions '.ts,.tsx' --out-dir dist --copy-files --ignore __tests__,specs.js,test.js,__snapshots__,__mocks__",
         "lint": "eslint . --ext .ts --ext .tsx"
     },
     "browserslist": [

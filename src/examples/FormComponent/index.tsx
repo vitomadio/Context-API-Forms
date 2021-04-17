@@ -55,9 +55,9 @@ const FormComponent: React.FC = (): JSX.Element => {
                     <Field name="zip-code" type="text" component={Input} />
                 </FormSection>
             </div>
-            <div className="hobbies">
-                <FieldArray name="hobbies" component={HobbiesComponent} />
-            </div>
+            {/* <div className="hobbies"> */}
+            <FieldArray name="hobbies" component={HobbiesComponent} />
+            {/* </div> */}
             <button type="submit">Print state</button>
         </Form>
     );
