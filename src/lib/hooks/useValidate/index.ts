@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-const useValidate: Function = (
+const useValidate = (
     ref: { current: HTMLElement | null },
-    validations: Array<Function> | undefined
+    validations: Array<(value: any) => boolean> | undefined
 ): boolean => {
     const [error, setError] = useState<boolean>(false);
     useEffect(() => {

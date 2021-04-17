@@ -7,7 +7,7 @@ import {
 import { setValue } from './utils';
 import { formStore } from '../../store';
 
-const useInputChange: Function = (
+const useInputChange = (
     ref: { current: HTMLElement | null },
     type: string | undefined,
     formName: string | undefined,
@@ -21,7 +21,7 @@ const useInputChange: Function = (
         const inputChange = (event: Event): any => {
             const target = event.target as HTMLInputElement;
             // Config value
-            let value: any = target.value || null;
+            let value: any = target.value;
             value = setValue(target, value, type);
             // Dispatch actions for Fields and FormSections
             if (formName) {
@@ -38,7 +38,7 @@ const useInputChange: Function = (
                 return setFormAction(formName, fieldName, value, dispatch);
             }
             // Dispatch actions for FieldArrays
-            if (formState && fieldName.includes('.')) {
+            if (formState && fieldName?.includes('.')) {
                 setFieldArrayAction(formState, fieldName, value, dispatch);
             }
         };

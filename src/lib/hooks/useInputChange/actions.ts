@@ -2,10 +2,10 @@ import { Dispatch } from 'react';
 
 interface IAction {
     type: string;
-    payload: object;
+    payload: any;
 }
 
-export const setFormAction: Function = (
+export const setFormAction = (
     formName: string,
     fieldName: string,
     value: any,
@@ -17,7 +17,7 @@ export const setFormAction: Function = (
     });
 };
 
-export const setFormSectionAction: Function = (
+export const setFormSectionAction = (
     formState: any,
     formName: string,
     formSectionName: string,
@@ -49,21 +49,37 @@ export const setFormSectionAction: Function = (
     }
 };
 
-export const setFieldArrayAction: Function = (
+export const setFieldArrayAction = (
     formState: any,
     fieldName: string,
     value: any,
     dispatch: Dispatch<IAction>
 ): void => {
     const [index, , formName, fieldArrayName, name] = fieldName.split('.');
-    dispatch({
+    if (name) {
+        return dispatch({
+            type: 'change-form',
+            payload: {
+                [formName]: {
+                    [fieldArrayName]: formState[formName][
+                        fieldArrayName
+                    ].map((field: any, i: number) =>
+                        i === parseInt(index)
+                            ? { ...field, [name]: value }
+                            : field
+                    ),
+                },
+            },
+        });
+    }
+    return dispatch({
         type: 'change-form',
         payload: {
             [formName]: {
                 [fieldArrayName]: formState[formName][
                     fieldArrayName
                 ].map((field: any, i: number) =>
-                    i === parseInt(index) ? { ...field, [name]: value } : field
+                    i === parseInt(index) ? value || {} : field
                 ),
             },
         },

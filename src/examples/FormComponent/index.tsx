@@ -9,17 +9,13 @@ import Selector from '../input-samples/Selector';
 import HobbiesComponent from '../HobbiesComponent';
 import Validation from '../utils/validations';
 
+import './styles.css';
+
 const Required = Validation.required;
 
-interface IFormComponentProps {
-    onSubmit: Function;
-}
-
-const FormComponent: React.FC<IFormComponentProps> = ({
-    onSubmit,
-}: IFormComponentProps): JSX.Element => {
+const FormComponent: React.FC = (): JSX.Element => {
     return (
-        <Form name="my-form" handleSubmit={onSubmit}>
+        <Form name="my-form">
             <Field
                 name="name"
                 label="Name"
@@ -51,12 +47,17 @@ const FormComponent: React.FC<IFormComponentProps> = ({
                 component={Input}
             />
             <Field name="sex" type="text" label="Sex" component={Selector} />
-            <FormSection name="address" label="Address">
-                <Field name="street" type="text" component={Input} />
-                <Field name="city" type="text" component={Input} />
-                <Field name="zip-code" type="text" component={Input} />
-            </FormSection>
+            <div className="address">
+                <FormSection name="address">
+                    <span>Address:</span>
+                    <Field name="street" type="text" component={Input} />
+                    <Field name="city" type="text" component={Input} />
+                    <Field name="zip-code" type="text" component={Input} />
+                </FormSection>
+            </div>
+            {/* <div className="hobbies"> */}
             <FieldArray name="hobbies" component={HobbiesComponent} />
+            {/* </div> */}
             <button type="submit">Print state</button>
         </Form>
     );

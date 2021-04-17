@@ -19,7 +19,7 @@ export interface IFieldProps {
     name: string;
     formSectionName?: string;
     fieldArrayName?: string;
-    validations?: Array<Function>;
+    validations?: Array<(value: any) => boolean>;
     label?: string;
     placeholder?: string;
     defaultValue?: any;

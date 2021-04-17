@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { formStore } from '../../store';
 
-const useGetValuesFromState: Function = (name: string): object | null => {
+const useGetValuesFromState = (name: string): any | null => {
     const { formState } = useContext<any>(formStore);
     if (formState && name) {
         return formState[name];

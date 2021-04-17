@@ -5,27 +5,11 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
-        <div>
-          <button
-            type="button"
-          >
-            Add Hobby
-          </button>
-        </div>
-      </div>
+      <div />
     </div>
   </body>,
   "container": <div>
-    <div>
-      <div>
-        <button
-          type="button"
-        >
-          Add Hobby
-        </button>
-      </div>
-    </div>
+    <div />
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
