@@ -1,14 +1,14 @@
 # Context API Forms
 
-Is a very lightweight Higher Order Component that uses Context API to manage form state.
+Is a lightweight Higher Order Component that uses React Context API to manage forms state.
 
 ## Motivation
 
-Looking for a lighter alternative to redux-forms using React Context API.
+Replicate Redux-Forms using Context API instead of Redux as state manager.
 
 ## Installation
 
-`$ npm install --save context-api-form` 
+`$ npm install context-api-form` 
 
 or 
 
@@ -20,13 +20,13 @@ or
 
 ```jsx
 import {FormProvider} from 'context-api-forms';
-    // Some code here...
+    // ...
 <FormProvider>
     <App />
 </FormProvider>
 ```
 
-**2.** Prepare a custom child component for your different fields:
+**2.** Prepare a custom child component for each kind of field i.e. The following Input component.
 
 ```jsx
 import React from 'react';
@@ -46,27 +46,27 @@ const Input = ({ type, error, name, ...props }) => {
 export default Input;
 ```
 
-This could be any type of HTML input type.
+**NOTE:** This could be any type of HTML input type also, textarea, select, etc.
 
-**3.** Use your custom component as a prop in a Field component, this will add all the logic to update the state.
+**3.** Pass your custom component as a component prop in a Field component, this will add all needed logic to update the state.
 
 ```jsx
 import { Form, Field } from 'context-api-form';
-    // Some code here...
-
+    // ...
 <Form name="my-form" handleSubmit={onSubmit}>
-    <Field fieldName="name" label="Name" component={Input} />
+    <Field name="name" type="text" label="Name" component={Input} />
 <Form>
 ```
 
-**4.** In case you need a nested form, you can use a FormSection as follows:
+**4.** In case you need nested fields, you can use a FormSection and go one level deeper in the form object as follows:
 
 ```jsx
 import { Form, Field, FieldArrayForm } from 'context-api-form';
-    // Some code here...
-
+    // ...
 <Form formName="my-form" handleSubmit={onSubmit}>
-    <Field name="name" label="Name" component={Input} />
+    <Field name="name" type="text" label="Name" component={Input} />
+    <Field name="lastname" type="text" label="Lastname" component={Input} />
+    <Field name="age" type="number" label="Age" component={Input} />
     <FormSection name="address">
         <Field name="steet" type="text" component={Input} />
         <Field name="city" type="text" component={Input} />
@@ -75,14 +75,16 @@ import { Form, Field, FieldArrayForm } from 'context-api-form';
 <Form>
 ```
 
-The example above will result in the following object representation:
+The example above will result in the following object representation :
 
 ```javascript
 {
     my-form: {
-        name: 'name',
+        name: 'John',
+        lastname: 'Doe',
+        age: 30,
         address: {
-            street: '4th Avenue S.W.Calgary,',
+            street: '4th Avenue S.W.Calgary.',
             city: 'Ablerta',
             zip-code: '12345'
         }
@@ -90,17 +92,18 @@ The example above will result in the following object representation:
 }
 ```
 
-**5.** To get your state, you just need to use the hook **useContext\(\)** as follows:
+**5.** To get the form content from the state, you just need to use the hook **useContext\(\)** to retrieve it:
 
 ```jsx
 import { formStore } from 'context-api-forms';
-    // Some code here...
-
+    // ...
 const {formState} = React.useContext(formStore);
 console.log(formState)
 ```
 
-**NOTE:** We recommend using **formState** as the name of the state in order to avoid confusion with other states.
+**NOTE:** Is strongly recommended to use **formState** as the name of the state in order to keep your form state separated from the general state.
+
+## API
 
 ## Form
 
@@ -109,27 +112,27 @@ Acting as an HTML form tag, the Form component is used to give a name to the for
 ### Properties:
 
 * **name &lt;string&gt; \[Required\]**: The only property needed and required to name your form.
-* **handleSubmit &lt;string&gt; \[Required\]**: Receives a function from the parent component and injects the form values into it.
+* **handleSubmit &lt;function&gt; \[Required\]**: Receives a function from the parent component and injects the form values into it.
 
 ## Field
 
-Is a Hight Order Component which wraps input types of children components in order to establish a connection with the Context API.
+Is a Hight Order Component which takes input components as props, this lets you connect your custom components with all the logic behind Context API Forms.
 
 ### Properties:
 
-* **Component &lt;React Component&gt; \[Required\]:** Component passed as a prop, to which will be applied all extra properties needed to be controlled by the FormProvider.
+* **component &lt;React Component&gt; \[Required\]:** Component passed as a prop, to which will be applied all extra properties needed to be controlled by the FormProvider.
 * **key &lt;string&gt;**: Passes a unique key to the child component.
-* **name &lt;string&gt; \[Required\]**: Used for naming your input, the same will be used to name the field in the state.
-* **type &lt;string&gt;**: Used for input type.
+* **name &lt;string&gt; \[Required\]**: Used for naming the field inside the form object.
+* **type &lt;string&gt; \[Required\]**: Indicates the type of input you are using.
 * **placeholder &lt;string&gt;**: Html placeholder attribute.
-* **label &lt;string&gt;**: Used for labeling fields.
-* **error &lt;string&gt;**: Used for validations, whether there is or there isn't an error.
-* **validations &lt;\[function\]&gt;**: Used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
-* **defaultValue &lt;string&gt;**: In case of any default value exists it will be passed through the "defaultValue" property.
+* **label &lt;string&gt;**: Passes down a label attribute to the input component. 
+* **validations &lt;\[function\]&gt;**: Array of functions used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
+* **error &lt;boolean&gt;**: This property will be passed automatically if there is a validation property.
+* **defaultValue &lt;string&gt;**: In case of any default value exists, it will be passed down through the "defaultValue" property.
 
 ## FormSection
 
-The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub-group. Allowing to make multiple levels of nested fields.
+The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub-group. This allows making multiple levels of nested fields.
 
 ### Properties:
 
@@ -137,7 +140,7 @@ The FormSection component lets create a sub-tree as a field in the form, assigni
 
 ## FieldArray
 
-FieldArray component as its name stands creates an array of fields, this functionality is very handy to create lists of forms dynamically, pushing forms into the list.
+FieldArray component as its name indicates creates an array of fields, this functionality is very handy to create lists of forms dynamically, by pushing forms into the list as needed.
 
 ### Properties:
 
@@ -153,7 +156,7 @@ FieldArray component as its name stands creates an array of fields, this functio
 
 FieldArray passes to PaymentMethodsComponent the "_**fields**_" property which is an object that contains its own methods \(**push**, **map**, and **remove**\).
 
-**NOTE:** Is very important to assign a key to every item in the list, using the first argument of the map function as the value, in order to it work correctly. See the following example for details.
+**NOTE:** Is very important to assign a key to every item in the list, using the first argument of the map method as the value, in order to make it work correctly. See the following example for details.
 
 ```jsx
 const PaymentMethodsComponent = ({ fields }) => (
@@ -165,7 +168,7 @@ const PaymentMethodsComponent = ({ fields }) => (
                     fields.push();
                 }}
             >
-                Add Hobby
+                Add Payment Method
             </button>
         </div>
         {fields.map((paymethod, index) => (
@@ -177,12 +180,36 @@ const PaymentMethodsComponent = ({ fields }) => (
                         name={`${paymethod}.name`}
                         type='text'
                         component={Input}
-                        label={`Hobby #${index + 1}`}
+                        label={`Pay Method #${index + 1}`}
                     />
                 </div>
             ))}
     </>
 );
+```
+
+In this particular example, we're using the paymethod.name as the name prop for the Field, this will result in an object inside the array where the key will be the word "name".
+
+```javascript
+{
+    ...
+    'payment-methods': [
+        {name: 'PayPal'},
+        {name: 'Credit Card'},
+    ]
+}
+```
+
+ You can also use just paymethod if you want only the value inside the array, i.e. 
+
+```jsx
+{
+    ...
+    'payment-methods': [
+        'PayPal',
+        'Credit Card',
+    ]
+}
 ```
 
 ## Form validations
@@ -192,12 +219,12 @@ Use your own form validations functions, just pass the validations as an array o
 Example of how to use custom validations:
 
 ```jsx
-const Required = (value) => {
+export const Required = (value) => {
 return !value || value === "" ? true : false;
 }
 ...
 <Field 
-    fieldName="name" 
+    name="name" 
     label="Name"
     type="text"
     validations={[Required]} 
@@ -208,7 +235,7 @@ return !value || value === "" ? true : false;
 
 ## Initial Values
 
-You can initialize your form with default values using the **useSetInitialValues** hook in an upper component in the tree. Call the hook sending the form as a tree object in parameters.
+To initialize your form with default values use the **useSetInitialValues** hook in the parent component. Use the form tree object as argument, including all the fields needed with the initial values.
 
 ```jsx
 import { useSetInitialValues } from 'context-api-forms';
