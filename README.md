@@ -109,43 +109,81 @@ console.log(formState)
 
 Acting as an HTML form tag, the Form component is used to give a name to the form in the context state.
 
-### Properties:
+### Props:
 
-* **name &lt;string&gt; \[Required\]**: The only property needed and required to name your form.
-* **handleSubmit &lt;function&gt; \[Required\]**: Receives a function from the parent component and injects the form values into it.
+**name: String \[Required\]**
+
+The only property needed and required to name your form.
+
+**handleSubmit: \(values: any\) =&gt; void** 
+
+Receives any function from the parent component and injects the form values into it.
 
 ## Field
 
 Is a Hight Order Component which takes input components as props, this lets you connect your custom components with all the logic behind Context API Forms.
 
-### Properties:
+### Props:
 
-* **component &lt;React Component&gt; \[Required\]:** Component passed as a prop, to which will be applied all extra properties needed to be controlled by the FormProvider.
-* **key &lt;string&gt;**: Passes a unique key to the child component.
-* **name &lt;string&gt; \[Required\]**: Used for naming the field inside the form object.
-* **type &lt;string&gt; \[Required\]**: Indicates the type of input you are using.
-* **placeholder &lt;string&gt;**: Html placeholder attribute.
-* **label &lt;string&gt;**: Passes down a label attribute to the input component. 
-* **validations &lt;\[function\]&gt;**: Array of functions used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
-* **error &lt;boolean&gt;**: This property will be passed automatically if there is a validation property.
-* **defaultValue &lt;string&gt;**: In case of any default value exists, it will be passed down through the "defaultValue" property.
+**name: String \[Required\]**
+
+Used for naming the field inside the form object.
+
+**component: Component&lt;FieldProps&gt; \[Required\]**
+
+Component passed as a prop, to which will be applied all extra properties needed to be controlled by the FormProvider.
+
+**key: String**
+
+Passes a unique key to the child component.
+
+**type: String**  
+
+Indicates the type of input you are using.
+
+**placeholder: String**
+
+Html placeholder attribute
+
+**label: String**
+
+Passes down a label attribute to the input component. 
+
+**validations: Array&lt;Function&gt; \| \(value, props, name\) =&gt; error \[optional\]**
+
+An array of functions used for validations, the functions must return a boolean which will be used by the error property to pass error existence to the child component.
+
+**error: Boolean** 
+
+This property will be passed automatically if there is a validation property.
+
+**defaultValue: String** 
+
+In case of any default value exists, it will be passed down through the "defaultValue" property.
 
 ## FormSection
 
 The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub-group. This allows making multiple levels of nested fields.
 
-### Properties:
+### Props:
 
-* **name &lt;string&gt; \[Required\]**: Used for naming your nested group of fields.
+**name: String \[Required\]**
+
+Used for naming your nested group of fields.
 
 ## FieldArray
 
 FieldArray component as its name indicates creates an array of fields, this functionality is very handy to create lists of forms dynamically, by pushing forms into the list as needed.
 
-### Properties:
+### Props:
 
-* **name &lt;string&gt; \[Required\]**: Used for naming the array of fields.
-* **component &lt;React Component&gt; \[Required\]**: The component which contains the logic needed to create a list of nested fields.
+**name: String \[Required\]**
+
+Used for naming the array of fields.
+
+**component: Component&lt;FieldArrayProps&gt; \[Required\]**
+
+The component ****that contains the logic needed to create a list of nested fields.
 
 ```jsx
 <Form name='myForm' handleSubmit={onSubmit}>
