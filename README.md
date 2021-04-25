@@ -165,6 +165,10 @@ This property will be passed automatically if there is a validation property.
 
 In case of any default value exists, it will be passed down through the "defaultValue" property.
 
+**props: Object**
+
+Pass any extra prop you need to the child component within an object.
+
 ## FormSection
 
 The FormSection component lets create a sub-tree as a field in the form, assigning a name to this sub-group. This allows making multiple levels of nested fields.
