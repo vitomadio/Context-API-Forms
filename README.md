@@ -6,6 +6,10 @@ Is a lightweight Higher Order Component that uses React Context API to manage fo
 
 Replicate Redux-Forms using Context API instead of Redux as state manager.
 
+### Disclaimer
+
+I'm by no means an expert in React.js, this is an ongoing project, and any advice or suggestion you could give will be kindly accepted. Feel free to check out the project and open new issues if you want to contribute.
+
 ## Installation
 
 `$ npm install context-api-form` 
